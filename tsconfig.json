@@ -8,13 +8,13 @@
         "preserveConstEnums": true,
         "declaration": true,
         "suppressImplicitAnyIndexErrors": true,
-        "outDir": "../dist"
+        "outDir": "../dist/"
     },
     "filesGlob": [
         "./**/*.ts",
         "!./node_modules/**/*.ts"
     ],
     "files": [
-        "./FabaRuntimeWeb.ts"
+        "./src/FabaRuntimeWeb.ts"
     ]
 }
