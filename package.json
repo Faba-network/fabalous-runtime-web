@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "author": "Jörg Wasmeier",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "fabalous": "0.0.23",
+    "fabalous-core": "0.0.23"
+  }
 }
