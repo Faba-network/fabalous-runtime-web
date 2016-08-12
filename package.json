@@ -1,6 +1,6 @@
 {
   "name": "fabalous-runtime-web",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "scripts": {
     "postversion": "git push && git push --tags && npm publish"
