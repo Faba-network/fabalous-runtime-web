@@ -1,5 +1,5 @@
-src/
 node_modules/
 gulpfile.js
 tsconfig.json
-
+*.ts
+!*.d.ts
