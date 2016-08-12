@@ -2,14 +2,17 @@
   "name": "fabalous-runtime-web",
   "version": "0.0.3",
   "description": "",
-  "main": "index.js",
+  "typings": "dist/index",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "postversion": "git push && git push --tags && npm publish"
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
   "devDependencies": {
-    "fabalous": "0.0.23",
-    "fabalous-core": "0.0.23"
+    "fabalous-core": "0.0.23",
+    "typescript": "^1.8.10"
   }
 }

@@ -1,0 +1,10 @@
+node_modules/
+src/
+gulp.js
+*.d.ts
+*.log
+*.tgz
+
+
+!index.d.ts
+!index.ref.d.ts
