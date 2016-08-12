@@ -1,14 +1,11 @@
 {
   "name": "fabalous-runtime-web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postversion": "git push && git push --tags"
   },
   "author": "Jörg Wasmeier",
-  "license": "ISC",
-  "scripts":{
-    "postversion": "git push && git push --tags"
-  }
+  "license": "ISC"
 }
