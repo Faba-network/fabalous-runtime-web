@@ -1,10 +1,9 @@
 {
-  "name": "fabalous-runtime-web",
+  "name": "@fabalous/runtime-web",
   "version": "0.0.6",
-  "description": "",
-  "main": "src/index.js",
   "scripts": {
-    "postversion": "git push && git push --tags && npm publish"
+    "postversion": "git push && git push --tags && npm publish",
+    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder"
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
@@ -13,5 +12,17 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "typescript": "^1.8.10"
-  }
+  },
+  "dependencies": {
+    "dts-generator": "^1.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Faba-network/fabalous-runtime-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Faba-network/fabalous-runtime-web/issues"
+  },
+  "homepage": "https://github.com/Faba-network/fabalous-runtime-web",
+  "description": ""
 }
