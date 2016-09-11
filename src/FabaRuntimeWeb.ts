@@ -1,13 +1,14 @@
 /**
  * Created by joergwasmeier on 26.12.15.
  */
+/// <reference path="./../typings/index.d.ts" />
 
 import FabaCore from "fabalous-core/core/FabaCore";
 import FabaTransportBase from "fabalous-core/transport/FabaTransportBase";
 import FabaRoutes from "./FabaRoutes";
 
 import {hashHistory, Router} from "react-router";
-import {ReactDOM} from "react";
+import {ReactDOM, React} from "react";
 
 export default class FabaRuntimeWeb extends FabaCore {
     static servers:Array<any> = [];
@@ -26,7 +27,7 @@ export default class FabaRuntimeWeb extends FabaCore {
         }
     }
 
-    protected renderRoutes(routes:FabaRoutes, container:String = "container"):void {
+    protected renderRoutes(routes:FabaRoutes, container:string = "container"):void {
         if (document.getElementById(container)) {
 
             var routes = React.createElement(Router, {routes: routes, history: hashHistory});
