@@ -3,12 +3,13 @@
  */
 /// <reference path="./../typings/index.d.ts" />
 
-import FabaCore from "fabalous-core/core/FabaCore";
-import FabaTransportBase from "fabalous-core/transport/FabaTransportBase";
+import FabaCore from "@fabalous/core/lib/FabaCore";
+import FabaTransportBase from "@fabalous/core/lib/transport/FabaTransportBase";
 import FabaRoutes from "./FabaRoutes";
 
 import {hashHistory, Router} from "react-router";
-import {ReactDOM, React} from "react";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export default class FabaRuntimeWeb extends FabaCore {
     static servers:Array<any> = [];
@@ -27,11 +28,12 @@ export default class FabaRuntimeWeb extends FabaCore {
         }
     }
 
-    protected renderRoutes(routes:FabaRoutes, container:string = "container"):void {
+    protected renderRoutes(routes:any, container:string = "container"):void {
         if (document.getElementById(container)) {
 
-            var routes = React.createElement(Router, {routes: routes, history: hashHistory});
-            ReactDOM.render(routes, document.getElementById(container));
+            //var routes = React.createElement(Router, {routes: routes, history: hashHistory});
+            var routesComponent = React.createElement(Router);
+            ReactDOM.render(routesComponent, document.getElementById(container));
         } else {
             console.error("Container not set");
         }
