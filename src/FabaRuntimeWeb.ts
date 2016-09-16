@@ -5,7 +5,7 @@
 
 import FabaCore from "@fabalous/core/lib/FabaCore";
 import FabaTransportBase from "@fabalous/core/lib/transport/FabaTransportBase";
-import FabaRoutes from "./FabaRoutes";
+//import FabaRoutes from "./FabaRoutes";
 
 import {hashHistory, Router} from "react-router";
 import * as React from "react";
@@ -38,4 +38,18 @@ export default class FabaRuntimeWeb extends FabaCore {
             console.error("Container not set");
         }
     }
+}
+
+export function loadRoute(cb) {
+    return (module) => cb(null, module.default);
+}
+
+export function loadRouteDash(cb, view?:string) {
+    return (module) => {
+        cb(null, ()=>{return module.default});
+    }
+}
+
+export function errorLoading(e) {
+    throw e;
 }

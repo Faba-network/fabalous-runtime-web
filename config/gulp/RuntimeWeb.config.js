@@ -11,6 +11,8 @@ module.exports = function (gulp){
     var buildConfig = developConfig;
 
     gulp.task('runtime-web-watch', function() {
+        console.log(path.join(__workDir, './dist/web/'));
+
         new WebpackDevServer(webpack(developConfig), {
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
@@ -35,7 +37,7 @@ module.exports = function (gulp){
                 'react', 'react-dom','react-router','history','material-ui'
             ],
             app: [
-                path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
+                path.join(__workDir, './src/A_Web.tsx') // Your appʼs entry point
             ]
         };
 

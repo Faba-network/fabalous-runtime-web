@@ -7,7 +7,7 @@ var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false,
 function root(p) {
   return path.join(__workDir, p);
 }
-console.log(path.join(__workDir, './dist/web'));
+
 module.exports = {
   output: {
     path: path.join(__workDir, './dist/web'),
@@ -18,6 +18,7 @@ module.exports = {
   noInfo: false,
   quiet: false,
 
+  publicPath:'http://localhost:8080/',
   devtool: 'source-map',
 
   resolve: {
@@ -30,9 +31,9 @@ module.exports = {
     ],
 
     app: [
+      path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
       'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
-      'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-      path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
+      'webpack/hot/only-dev-server' // "only" prevents reload on syntax errors
     ]
   },
   module: {
@@ -44,7 +45,14 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'react-hot!babel?cacheDirectory=true!awesome-typescript-loader',
+        include:[
+          path.join(__workDir, './src/')
+        ],
+        loaders: [
+          'react-hot',
+          'babel?presets[]=es2015',
+          'awesome-typescript-loader'
+        ],
         exclude: /node_modules/
       },
       {
@@ -68,13 +76,12 @@ module.exports = {
   plugins: [
     new ForkCheckerPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify('production')},
+      //'process.env': {NODE_ENV: JSON.stringify('production')},
       CLIENT: true,
       SERVER: false,
       TEST: false
     }),
     new webpack.HotModuleReplacementPlugin(),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
