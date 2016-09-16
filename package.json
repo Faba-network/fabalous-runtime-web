@@ -1,6 +1,6 @@
 {
   "name": "@fabalous/runtime-web",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "postversion": "git push && git push --tags && npm publish",
     "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder"
@@ -40,7 +40,6 @@
     "classnames": "^2.2.5",
     "compression-webpack-plugin": "^0.3.1",
     "less": "*"
-
   },
   "repository": {
     "type": "git",
