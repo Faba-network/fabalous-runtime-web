@@ -7,7 +7,7 @@
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@fabalous/core": "0.0.2",
     "awesome-typescript-loader": "^2.0.1",
     "gulp": "^3.9.1",
