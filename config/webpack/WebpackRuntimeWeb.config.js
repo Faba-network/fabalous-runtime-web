@@ -5,12 +5,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 
 function root(p) {
-  return path.join(__dirname, p);
+  return path.join(__workDir, p);
 }
-
+console.log(path.join(__workDir, './dist/web'));
 module.exports = {
   output: {
-    path: path.join(__dirname, '../../dist/web/'),
+    path: path.join(__workDir, './dist/web'),
     chunkFilename: 'bundle-[chunkhash].js'
   },
 
@@ -32,7 +32,7 @@ module.exports = {
     app: [
       'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
       'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-      './src/A_Web.ts' // Your appʼs entry point
+      path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
     ]
   },
   module: {

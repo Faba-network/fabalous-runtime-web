@@ -21,9 +21,10 @@ export default class FabaRoutes {
 
 export class FabaChildRoute {
     path: string;
+    modulePath:string;
 
-    getComponent(modulePath:string, view:string, cb) {
-        System.import(modulePath).then(this.loadRouteDash(cb)).catch(this.errorLoading);
+    getComponent(location:string, view:string, cb) {
+        System.import(this.modulePath).then(this.loadRouteDash(cb)).catch(this.errorLoading);
     }
 
     loadRouteDash(cb, view?: string) {
