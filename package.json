@@ -1,22 +1,28 @@
 {
   "name": "@fabalous/runtime-web",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "scripts": {
     "postversion": "git push && git push --tags && npm publish",
     "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace"
+    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder",
+    "install": "cp -R ./lib/ ./ && rm -r ./lib "
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
-  "devDependencies": {
-    "@fabalous/core": "0.0.2",
+  "dependencies": {
+    "@fabalous/core": "*",
     "awesome-typescript-loader": "^2.0.1",
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-util": "^3.0.7",
-    "tslint": "^3.15.1",
-    "typescript": "^2.0.2",
-    "webpack": "^2.1.0-beta.20",
-    "webpack-dev-server": "^2.1.0-beta.0",
+    "babel-preset-react": "^6.11.1",
+    "classnames": "^2.2.5",
+    "compression-webpack-plugin": "^0.3.1",
+    "css-loader": "0.23.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.3",
+    "file-loader": "^0.9.0",
+    "history": "^3.0.0",
+    "html-webpack-plugin": "*",
+    "less": "*",
+    "less-loader": "^2.2.3",
+    "offline-plugin": "^3.3.0",
     "react": "^15.2.1",
     "react-addons-create-fragment": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
@@ -30,16 +36,17 @@
     "react-responsive-carousel": "^3.0.11",
     "react-router": "^2.4.1",
     "react-tap-event-plugin": "^1.0.0",
-    "offline-plugin": "^3.3.0",
-    "less-loader": "^2.2.3",
-    "material-ui": "^0.15.2",
-    "history": "^3.0.0",
-    "html-webpack-plugin": "*",
-    "extract-text-webpack-plugin": "^2.0.0-beta.3",
-    "css-loader": "0.23.1",
-    "classnames": "^2.2.5",
-    "compression-webpack-plugin": "^0.3.1",
-    "less": "*"
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^2.1.0-beta.20",
+    "webpack-dev-server": "^2.1.0-beta.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-util": "^3.0.7",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.2"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
-import FabaTransportBase from "@fabalous/core/lib/transport/FabaTransportBase";
-import FabaEvent from "@fabalous/core/lib/FabaEvent";
+import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
+import FabaEvent from "@fabalous/core/FabaEvent";
 
 /**
  * Created by creativecode on 25.12.15.

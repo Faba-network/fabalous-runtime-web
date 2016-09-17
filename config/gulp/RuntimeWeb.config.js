@@ -3,6 +3,10 @@ module.exports = function (gulp){
     var WebpackDevServer = require("webpack-dev-server");
     var path = require('path');
 
+   // var Dashboard = require('webpack-dashboard');
+   // var DashboardPlugin = require('webpack-dashboard/plugin');
+   // var dashboard = new Dashboard();
+
     var CompressionPlugin = require('compression-webpack-plugin');
 
     // TODO: Override Web?
@@ -11,14 +15,19 @@ module.exports = function (gulp){
     var buildConfig = developConfig;
 
     gulp.task('runtime-web-watch', function() {
+        console.log(path.join(__workDir, './dist/web/'));
+
         new WebpackDevServer(webpack(developConfig), {
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
             hot: true,
-            quiet: false,
-            noInfo: false,
             stats: {
-                colors: true
+                colors: true,
+                chunks:false,
+                assets:true,
+                modules:false,
+                version:true,
+                errors:true
             }
         }).listen(8080, "localhost", function(err) {
             if (err) console.error(err);
@@ -35,7 +44,7 @@ module.exports = function (gulp){
                 'react', 'react-dom','react-router','history','material-ui'
             ],
             app: [
-                path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
+                path.join(__workDir, './src/A_Web.tsx') // Your appʼs entry point
             ]
         };
 
