@@ -44,7 +44,7 @@ module.exports = function (gulp){
                 'react', 'react-dom','react-router','history','material-ui'
             ],
             app: [
-                path.join(__workDir, './src/A_Web.tsx') // Your appʼs entry point
+                path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
             ]
         };
 
