@@ -14,7 +14,7 @@ module.exports = {
     chunkFilename: 'bundle-[chunkhash].js'
   },
 
-  debug: true,
+  debug: false,
   noInfo: false,
   quiet: false,
 

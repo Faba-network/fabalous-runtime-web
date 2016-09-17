@@ -3,8 +3,8 @@
  */
 /// <reference path="./../typings/index.d.ts" />
 
-import FabaCore from "@fabalous/core/lib/FabaCore";
-import FabaTransportBase from "@fabalous/core/lib/transport/FabaTransportBase";
+import FabaCore from "@fabalous/core/FabaCore";
+import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
 //import FabaRoutes from "./FabaRoutes";
 
 import {hashHistory, Router} from "react-router";

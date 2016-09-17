@@ -3,6 +3,10 @@ module.exports = function (gulp){
     var WebpackDevServer = require("webpack-dev-server");
     var path = require('path');
 
+   // var Dashboard = require('webpack-dashboard');
+   // var DashboardPlugin = require('webpack-dashboard/plugin');
+   // var dashboard = new Dashboard();
+
     var CompressionPlugin = require('compression-webpack-plugin');
 
     // TODO: Override Web?
@@ -17,10 +21,13 @@ module.exports = function (gulp){
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
             hot: true,
-            quiet: false,
-            noInfo: false,
             stats: {
-                colors: true
+                colors: true,
+                chunks:false,
+                assets:true,
+                modules:false,
+                version:true,
+                errors:true
             }
         }).listen(8080, "localhost", function(err) {
             if (err) console.error(err);
