@@ -1,5 +1,14 @@
 var gulp = require('gulp');
 var clean = require('gulp-clean');
+var replace = require('gulp-replace');
+
+gulp.task('replace', function() {
+    return gulp.src('lib/**')
+        .pipe(replace(/\.\/\.\.\/typings\/index.d.ts/g, './typings/index.d.ts'))
+        .pipe(replace(/\.\.\/typings\/index.d.ts/g, './typings/index.d.ts'))
+        .pipe(gulp.dest('lib/'));
+});
+
 
 gulp.task('clean', function() {
     return gulp.src('lib/')
