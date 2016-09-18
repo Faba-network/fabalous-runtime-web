@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@fabalous/core": "*",
-    "awesome-typescript-loader": "^2.0.1",
+    "awesome-typescript-loader": "2.1.1",
     "babel-preset-react": "^6.11.1",
     "classnames": "^2.2.5",
     "compression-webpack-plugin": "^0.3.1",

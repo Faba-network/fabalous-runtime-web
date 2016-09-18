@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
+//var ExtractTextPlugin = require('extract-text-webpack-plugin');
+//var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 
 function root(p) {
   return path.join(__workDir, p);
@@ -14,12 +14,13 @@ module.exports = {
     chunkFilename: 'bundle-[chunkhash].js'
   },
 
+  cache:true,
   debug: false,
   noInfo: false,
   quiet: false,
 
   publicPath:'http://localhost:8080/',
-  devtool: 'source-map',
+  devtool: 'eval',
 
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
@@ -41,7 +42,9 @@ module.exports = {
       {
         test: /\.less$/,
         loader: 'style-loader!css-loader!less-loader',
-        exclude: /node_modules/
+        include:[
+          path.join(__workDir, './src/')
+        ]
       },
       {
         test: /\.tsx?$/,
@@ -50,25 +53,29 @@ module.exports = {
         ],
         loaders: [
           'react-hot',
-          'babel?presets[]=es2015',
-          'awesome-typescript-loader'
-        ],
-        exclude: /node_modules/
+          'awesome-typescript'
+        ]
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
         loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
-        exclude: /node_modules/
+        include:[
+          path.join(__workDir, './src/')
+        ],
       },
       {
         test: /\.json$/,
         loader: 'json',
-        exclude: /node_modules/
+        include:[
+          path.join(__workDir, './src/')
+        ],
       },
       {
         test: /index.html/,
         loader: 'url-loader?limit=1&name=[name].[ext]',
-        exclude: /node_modules/
+        include:[
+          path.join(__workDir, './src/')
+        ],
       }
     ]
   },
