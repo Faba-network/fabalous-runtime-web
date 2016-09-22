@@ -1,8 +1,8 @@
 {
   "resolution": "main",
   "tree": {
-    "src": "https://raw.githubusercontent.com/types/npm-react-router/cc3c871e66e2a36046c10462ee23a97fb14aed49/typings.json",
-    "raw": "registry:npm/react-router#2.4.0+20160811060709",
+    "src": "https://raw.githubusercontent.com/types/npm-react-router/503d095e265d0949d7097b83c9195884bde104d9/typings.json",
+    "raw": "registry:npm/react-router#2.4.0+20160915183637",
     "main": "react-router.d.ts",
     "version": "2.4.0",
     "dependencies": {

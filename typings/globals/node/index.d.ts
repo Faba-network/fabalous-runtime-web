@@ -25,8 +25,8 @@ interface WeakSetConstructor { }
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 
-declare var __filename: any;
-declare var __dirname: any;
+declare var __filename: string;
+declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
@@ -46,7 +46,7 @@ interface NodeRequire extends NodeRequireFunction {
     main: any;
 }
 
-declare var require: any;
+declare var require: NodeRequire;
 
 interface NodeModule {
     exports: any;
