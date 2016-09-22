@@ -4,6 +4,7 @@ npm-debug.log
 *.d.ts
 *.js
 *.js.map
+typings
 !config/*/*.js
 !/typings/**/*/*.d.ts
 !/typings/*/**.d.ts

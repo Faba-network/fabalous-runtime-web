@@ -2,21 +2,11 @@ module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
     var path = require('path');
-
-   // var Dashboard = require('webpack-dashboard');
-   // var DashboardPlugin = require('webpack-dashboard/plugin');
-   // var dashboard = new Dashboard();
-
     var CompressionPlugin = require('compression-webpack-plugin');
 
-    // TODO: Override Web?
     var developConfig = require("./../webpack/WebpackRuntimeWeb.config");
-    var testConfig = require("./../webpack/WebpackRuntimeWebTest.config");
-    var buildConfig = developConfig;
 
     gulp.task('runtime-web-watch', function() {
-        console.log(path.join(__workDir, './dist/web/'));
-
         new WebpackDevServer(webpack(developConfig), {
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
@@ -29,27 +19,15 @@ module.exports = function (gulp){
                 version:true,
                 errors:true
             }
-        }).listen(8080, "localhost", function(err) {
+        }).listen(8080, 'localhost', function(err) {
             if (err) console.error(err);
         });
     });
 
     gulp.task('runtime-web-build', function(done) {
         var myConfig = developConfig;
-        myConfig.debug = false;
-        myConfig.devtool = null;
-
-        myConfig.entry = {
-            vendor: [
-                'react', 'react-dom','react-router','history','material-ui'
-            ],
-            app: [
-                path.join(__workDir, './src/A_Web.ts') // Your appʼs entry point
-            ]
-        };
-
-        myConfig.plugins = [
-            /*
+        myConfig.devtool = false;
+        myConfig.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
@@ -58,20 +36,19 @@ module.exports = function (gulp){
                     comments: false
                 },
                 sourceMap: false
-            }),
-            */
-            new webpack.optimize.DedupePlugin(),
+            })
+        );
+
+        myConfig.plugins.push(
             new webpack.DefinePlugin({
-                'process.env': { NODE_ENV: JSON.stringify('production') }
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-                minChunks: Infinity,
-                filename: 'vendor.bundle.js'
-            }),
-            new webpack.NoErrorsPlugin(),
-            new CompressionPlugin()
-        ];
+                'process.env': { NODE_ENV: JSON.stringify('production') },
+                'CLIENT':true
+            })
+        );
+
+        myConfig.plugins.push(
+            new webpack.NoErrorsPlugin()
+        );
 
         webpack(myConfig).run(onBuild(done));
     });

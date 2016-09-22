@@ -1,17 +1,16 @@
 /**
  * Created by joergwasmeier on 26.12.15.
  */
-/// <reference path="./../typings/index.d.ts" />
 
-import FabaCore from "@fabalous/core/FabaCore";
+import FabaCoreRuntime from "@fabalous/core/FabaCoreRuntime";
 import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
-//import FabaRoutes from "./FabaRoutes";
-
 import {hashHistory, Router} from "react-router";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import FabaCore from "@fabalous/core/FabaCore";
+import {IRouterProps} from "react-router";
 
-export default class FabaRuntimeWeb extends FabaCore {
+export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers:Array<any> = [];
 
     static addServerEndPoint(conn:FabaTransportBase, name:string):void{
@@ -28,28 +27,26 @@ export default class FabaRuntimeWeb extends FabaCore {
         }
     }
 
-    protected renderRoutes(routes:any, container:string = "container"):void {
-        if (document.getElementById(container)) {
-
-            //var routes = React.createElement(Router, {routes: routes, history: hashHistory});
-            var routesComponent = React.createElement(Router);
-            ReactDOM.render(routesComponent, document.getElementById(container));
-        } else {
-            console.error("Container not set");
+    protected renderRoutes(containerName:string = 'container') {
+        if (document.getElementById(containerName)) {
+            var routes = React.createElement(Router, {routes: this.routes(), history: hashHistory});
+            ReactDOM.render(routes, document.getElementById('container'));
         }
     }
-}
 
-export function loadRoute(cb) {
-    return (module) => cb(null, module.default);
-}
+    public routes():any{};
 
-export function loadRouteDash(cb, view?:string) {
-    return (module) => {
-        cb(null, ()=>{return module.default});
+    static loadFabaRoute(cb, view?:string) {
+        return (module) => {
+            FabaCore.addMediator(module.mediator);
+
+            new module.initEvent(view).dispatch((event)=>{
+                cb(null, ()=>{return event.view});
+            });
+        }
     }
-}
 
-export function errorLoading(e) {
-    throw e;
+    static errorLoading(e) {
+        throw e;
+    }
 }
