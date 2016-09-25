@@ -4,7 +4,7 @@
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
     "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace",
-    "install": "cp -R ./lib/ ./ && rm -r ./lib && typings install"
+    "install": "cp -Rf ./lib/* ./ && rm -r ./lib && typings install"
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
