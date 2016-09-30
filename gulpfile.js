@@ -39,3 +39,21 @@ gulp.task('copy_package_json', function() {
     return gulp.src('package.json')
         .pipe(gulp.dest('lib/'));
 });
+var babel = require('gulp-babel');
+var path = require('path');
+
+var absolutePath = path.join(__dirname, '../../');
+
+gulp.task('babel', function(){
+    return gulp.src('lib/**/**.js')
+        .pipe(babel({
+            presets: ['es2015'],
+            plugins: ["transform-async-to-generator"]
+        }))
+        .pipe(gulp.dest('lib'));
+});
+
+gulp.task('copy_to_lingua', function() {
+    return gulp.src('./lib/**/**')
+        .pipe(gulp.dest("./../lingua/node_modules/@fabalous/runtime-web/"));
+});

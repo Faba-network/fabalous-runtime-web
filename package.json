@@ -3,7 +3,7 @@
   "version": "0.1.7",
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
-    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace",
+    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace && gulp babel && gulp copy_to_lingua",
     "install": "cp -R ./lib/ ./ && rm -r ./lib && typings install"
   },
   "author": "Jörg Wasmeier",
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.7",

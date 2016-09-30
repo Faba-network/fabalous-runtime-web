@@ -17,23 +17,25 @@ export default class FabaApiConnection extends FabaTransportBase {
     this.sendEventList = [];
   }
 
-  private completeHandler(data:any):void {
+  private completeHandler(data:any,event:FabaEvent):void {
     let assign = require('object.assign').getPolyfill();
 
     let jsonString:string = data.target.response;
     let json = JSON.parse(jsonString);
 
-    let currentEvent = this.sendEventList[0];
-    let h:any = assign(currentEvent, json);
+    let h:any = assign(event, json);
 
-    h.dispatch(null, true);
+    event.dispatch(null, true);
   }
 
+  // TODO BUG
   public send(event:FabaEvent, timeoutTime:number = 5000, timeOut:boolean = true, compress:boolean = true) {
-    this.sendEventList.push(event);
-
+    //this.sendEventList.push(event);
+    //event.callBack();
     var nRequest:XMLHttpRequest = new XMLHttpRequest();
-    nRequest.addEventListener("load", this.completeHandler.bind(this), false);
+    nRequest.addEventListener("load", (data)=>{
+      this.completeHandler(data,event);
+    }, false);
     nRequest.open("POST", this.url, true);
     //nRequest.setRequestHeader('Content-Type', 'text/plain');
     nRequest.send(super.prepareEventToSend(event));
