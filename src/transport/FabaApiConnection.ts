@@ -36,6 +36,10 @@ export default class FabaApiConnection extends FabaTransportBase {
     nRequest.addEventListener("load", (data)=>{
       this.completeHandler(data,event);
     }, false);
+
+    nRequest.addEventListener("abort", ()=>{
+      console.log("error");
+    }, false);
     nRequest.open("POST", this.url, true);
     //nRequest.setRequestHeader('Content-Type', 'text/plain');
     nRequest.send(super.prepareEventToSend(event));
