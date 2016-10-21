@@ -1,5 +1,5 @@
 import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
-import FabaEvent from "@fabalous/core/FabaEvent";
+import {FabaEventResultType, FabaEvent} from "@fabalous/core/FabaEvent";
 
 /**
  * Created by creativecode on 25.12.15.
@@ -25,7 +25,7 @@ export default class FabaApiConnection extends FabaTransportBase {
 
     let h:any = assign(event, json);
 
-    event.dispatch(null, true);
+    event.dispatch(null, FabaEventResultType.RESULT);
   }
 
   // TODO BUG
