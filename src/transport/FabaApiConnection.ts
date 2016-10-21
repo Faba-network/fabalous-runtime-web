@@ -1,5 +1,6 @@
 import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
-import {FabaEventResultType, FabaEvent} from "@fabalous/core/FabaEvent";
+import {FabaEventResultType} from "@fabalous/core/FabaEvent";
+import FabaEvent from "@fabalous/core/FabaEvent";
 
 /**
  * Created by creativecode on 25.12.15.
