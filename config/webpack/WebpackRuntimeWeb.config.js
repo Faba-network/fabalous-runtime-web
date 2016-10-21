@@ -49,7 +49,7 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'react-hot!babel?cacheDirectory=true!awesome-typescript-loader'
+                loader: 'babel?cacheDirectory=true!awesome-typescript-loader'
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,

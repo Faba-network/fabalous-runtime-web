@@ -1,10 +1,10 @@
 {
   "name": "@fabalous/runtime-web",
-  "version": "0.1.7",
+  "version": "0.1.12",
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
-    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace && gulp babel && gulp copy_to_lingua",
-    "install": "cp -R ./lib/ ./ && rm -r ./lib && typings install"
+    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace && gulp babel",
+    "install": "cp -Rf ./lib/* ./ && rm -r ./lib && typings install"
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
@@ -46,6 +46,8 @@
     "gulp-clean": "^0.3.2",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.7",
+    "react-hot-loader": "^3.0.0-beta.5",
+    "react-transform-hmr": "^1.0.4",
     "tslint": "^3.15.1",
     "typescript": "^2.0.2"
   },
