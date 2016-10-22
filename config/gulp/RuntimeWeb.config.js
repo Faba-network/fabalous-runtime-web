@@ -63,7 +63,6 @@ module.exports = function (gulp){
                 sourceMap: false
             }),
 
-            new webpack.NamedModulesPlugin(),
             new webpack.NoErrorsPlugin(),
             new CompressionPlugin()
             //new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true})
