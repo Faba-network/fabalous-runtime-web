@@ -27,6 +27,16 @@ module.exports = function (gulp){
     gulp.task('runtime-web-build', function(done) {
         var myConfig = developConfig;
         myConfig.devtool = false;
+        myConfig.plugins = [];
+        myConfig.plugins.push(
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor',
+                minChunks: Infinity,
+                minChunkSize: 50000,
+                filename: 'vendor.bundle.js'
+            })
+        );
+
         myConfig.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
