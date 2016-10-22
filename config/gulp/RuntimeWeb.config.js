@@ -26,6 +26,17 @@ module.exports = function (gulp){
 
     gulp.task('runtime-web-build', function(done) {
         var myConfig = developConfig;
+
+        myConfig.entry = {
+            vendor: [
+                'react', 'react-dom', 'react-router', 'history'
+            ],
+
+            app: [
+                path.join(__workDir, './src/A_Web.ts')
+            ]
+        };
+
         myConfig.devtool = false;
 
         myConfig.plugins = [
