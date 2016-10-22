@@ -29,7 +29,6 @@ module.exports = function (gulp){
         myConfig.devtool = false;
 
         myConfig.plugins = [
-            new ForkCheckerPlugin(),
             new webpack.DefinePlugin({
                 CLIENT: true,
                 SERVER: false,
