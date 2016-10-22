@@ -43,7 +43,8 @@ module.exports = function (gulp){
             new webpack.DefinePlugin({
                 CLIENT: true,
                 SERVER: false,
-                TEST: false
+                TEST: false,
+                NODE_ENV: JSON.stringify("production")
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
