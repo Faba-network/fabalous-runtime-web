@@ -27,17 +27,22 @@ module.exports = function (gulp){
     gulp.task('runtime-web-build', function(done) {
         var myConfig = developConfig;
         myConfig.devtool = false;
-        myConfig.plugins = [];
-        myConfig.plugins.push(
+
+        myConfig.plugins = [
+            new ForkCheckerPlugin(),
+            new webpack.DefinePlugin({
+                CLIENT: true,
+                SERVER: false,
+                TEST: false
+            }),
+
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
                 minChunks: Infinity,
                 minChunkSize: 50000,
                 filename: 'vendor.bundle.js'
-            })
-        );
+            }),
 
-        myConfig.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
@@ -46,19 +51,13 @@ module.exports = function (gulp){
                     comments: false
                 },
                 sourceMap: false
-            })
-        );
+            }),
 
-        myConfig.plugins.push(
-            new webpack.DefinePlugin({
-                'process.env': { NODE_ENV: JSON.stringify('production') },
-                'CLIENT':true
-            })
-        );
-
-        myConfig.plugins.push(
-            new webpack.NoErrorsPlugin()
-        );
+            new webpack.NamedModulesPlugin(),
+            new webpack.NoErrorsPlugin(),
+            new CompressionPlugin()
+            //new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true})
+        ];
 
         webpack(myConfig).run(onBuild(done));
     });
