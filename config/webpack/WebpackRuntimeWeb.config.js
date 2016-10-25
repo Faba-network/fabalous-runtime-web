@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 //var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 
@@ -18,7 +20,7 @@ module.exports = {
 
     // TODO: eval on fast develop
     // devtool: __devTool | 'source-map',
-    devtool: 'source-map',
+    devtool: 'eval',
 
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
@@ -49,7 +51,7 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'babel?cacheDirectory=true!awesome-typescript-loader'
+                loader: 'awesome-typescript-loader'
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
@@ -90,6 +92,7 @@ module.exports = {
             minChunkSize: 50000,
             filename: 'vendor.bundle.js'
         }),
+        new ProgressBarPlugin(),
 
         new webpack.NamedModulesPlugin()
     ]
