@@ -40,6 +40,7 @@ module.exports = {
     module: {
         loaders: [
             {
+                enforce: 'pre',
                 test: /\.less$/,
                 loader: 'style-loader!css-loader!less-loader',
                 include: [
@@ -54,6 +55,7 @@ module.exports = {
                 loader: 'babel?cacheDirectory=true!awesome-typescript-loader'
             },
             {
+                enforce: 'pre',
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
                 loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
                 include: [
@@ -61,15 +63,9 @@ module.exports = {
                 ],
             },
             {
-                test: /\.json$/,
-                loader: 'json',
-                include: [
-                    path.join(__workDir, './src/')
-                ],
-            },
-            {
-                test: /index.html/,
-                loader: 'url-loader?limit=1&name=[name].[ext]',
+                enforce: 'pre',
+                test: /index.html|manifest.json/,
+                loader: 'file?name=[name].[ext]',
                 include: [
                     path.join(__workDir, './src/')
                 ],

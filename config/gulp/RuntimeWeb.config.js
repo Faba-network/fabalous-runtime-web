@@ -44,7 +44,7 @@ module.exports = function (gulp){
                 CLIENT: true,
                 SERVER: false,
                 TEST: false,
-                NODE_ENV: JSON.stringify("production")
+                'process.env': JSON.stringify("production")
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -74,6 +74,9 @@ module.exports = function (gulp){
 
     function onBuild(done) {
         return function(err, stats) {
+            gulp.src(__workDir+"/src/manifest.json")
+                .pipe(gulp.dest(__workDir+"/dist/web/"));
+
             if(err)console.error('Error', err);
             else console.log(stats.toString());
             if(done) done();
