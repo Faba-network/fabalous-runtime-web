@@ -44,7 +44,7 @@ module.exports = function (gulp){
                 CLIENT: true,
                 SERVER: false,
                 TEST: false,
-                'process.env': JSON.stringify("production")
+                'process.env': {NODE_ENV: JSON.stringify('production')},
             }),
 
             new webpack.optimize.CommonsChunkPlugin({

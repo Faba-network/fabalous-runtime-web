@@ -76,7 +76,6 @@ module.exports = {
     plugins: [
         new ForkCheckerPlugin(),
         new webpack.DefinePlugin({
-            //'process.env': {NODE_ENV: JSON.stringify('production')},
             CLIENT: true,
             SERVER: false,
             TEST: false
