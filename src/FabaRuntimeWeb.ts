@@ -4,11 +4,7 @@
 
 import FabaCoreRuntime from "@fabalous/core/FabaCoreRuntime";
 import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
-import {hashHistory, Router} from "react-router";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
 import FabaCore from "@fabalous/core/FabaCore";
-import {IRouterProps} from "react-router";
 
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers:Array<any> = [];
@@ -26,15 +22,6 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
             this.servers[i].conn.send(event);
         }
     }
-
-    protected renderRoutes(containerName:string = 'container') {
-        if (document.getElementById(containerName)) {
-            var routes = React.createElement(Router, {routes: this.routes(), history: hashHistory});
-            ReactDOM.render(routes, document.getElementById('container'));
-        }
-    }
-
-    public routes():any{};
 
     static loadFabaRoute(cb, view?:string) {
         return (module) => {
