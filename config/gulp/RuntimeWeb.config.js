@@ -29,7 +29,7 @@ module.exports = function (gulp){
 
         myConfig.entry = {
             vendor: [
-                'react', 'react-dom', 'react-router', 'history'
+                'react', 'react-dom', 'history'
             ],
 
             app: [

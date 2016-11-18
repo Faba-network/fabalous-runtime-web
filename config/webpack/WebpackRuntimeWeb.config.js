@@ -20,7 +20,7 @@ module.exports = {
 
     // TODO: eval on fast develop
     // devtool: __devTool | 'source-map',
-    devtool: 'eval',
+    devtool: 'source-map',
 
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
@@ -28,7 +28,7 @@ module.exports = {
 
     entry: {
         vendor: [
-            'react', 'react-dom', 'react-router', 'history'
+            'react', 'react-dom', 'history'
         ],
 
         app: [
@@ -40,7 +40,6 @@ module.exports = {
     module: {
         loaders: [
             {
-                enforce: 'pre',
                 test: /\.less$/,
                 loader: 'style-loader!css-loader!less-loader',
                 include: [
@@ -52,10 +51,9 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'babel?cacheDirectory=true!awesome-typescript-loader'
+                loader: 'babel-loader?cacheDirectory=true!awesome-typescript-loader'
             },
             {
-                enforce: 'pre',
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
                 loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
                 include: [
@@ -65,7 +63,7 @@ module.exports = {
             {
                 enforce: 'pre',
                 test: /index.html|manifest.json/,
-                loader: 'file?name=[name].[ext]',
+                loader: 'file-loader?name=[name].[ext]',
                 include: [
                     path.join(__workDir, './src/')
                 ],
