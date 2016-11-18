@@ -6,4 +6,5 @@ npm-debug.log
 *.js.map
 typings
 !config/*/*.js
+!src/shallow-compare.d.ts
 !gulpfile.js
