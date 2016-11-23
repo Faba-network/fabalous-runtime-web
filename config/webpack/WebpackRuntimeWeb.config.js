@@ -1,8 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-var ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 //var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 
@@ -28,7 +26,7 @@ module.exports = {
 
     entry: {
         vendor: [
-            'react', 'react-dom', 'history'
+            'react', 'react-dom', 'react-router', 'history'
         ],
 
         app: [
@@ -40,18 +38,11 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader',
-                include: [
-                    path.join(__workDir, './src/')
-                ]
-            },
-            {
                 test: /\.tsx?$/,
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'babel-loader?cacheDirectory=true!awesome-typescript-loader'
+                loader: 'awesome-typescript-loader'
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
@@ -60,10 +51,10 @@ module.exports = {
                     path.join(__workDir, './src/')
                 ],
             },
+
             {
-                enforce: 'pre',
-                test: /index.html|manifest.json/,
-                loader: 'file-loader?name=[name].[ext]',
+                test: /index.html/,
+                loader: 'url-loader?limit=1&name=[name].[ext]',
                 include: [
                     path.join(__workDir, './src/')
                 ],

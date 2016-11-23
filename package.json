@@ -3,7 +3,7 @@
   "version": "0.1.32",
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
-    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace && gulp babel",
+    "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace",
     "install": "cp -Rf ./lib/* ./ && rm -r ./lib && typings install"
   },
   "author": "Jörg Wasmeier",
@@ -36,7 +36,7 @@
     "react-responsive-carousel": "^3.0.21",
     "react-tap-event-plugin": "^2.0.1",
     "style-loader": "^0.13.1",
-    "typescript": "^2.0.10",
+    "typescript": "^2.2.0-dev.20161123",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.20",
     "webpack-dev-server": "^2.1.0-beta.0"
