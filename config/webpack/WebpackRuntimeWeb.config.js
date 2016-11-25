@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 //var ExtractTextPlugin = require('extract-text-webpack-plugin');
 //var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
+var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 function root(p) {
     return path.join(__workDir, p);
@@ -26,7 +27,7 @@ module.exports = {
 
     entry: {
         vendor: [
-            'react', 'react-dom', 'react-router', 'history'
+            'react', 'react-dom', 'history'
         ],
 
         app: [
