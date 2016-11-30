@@ -22,7 +22,12 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     rootComponent:any;
 
     constructor(store:FabaStore<any>){
-        super();
+        super(store);
+
+        store.cursor.on("update", (e) => {
+            store.appStore = e.data.currentData;
+            this.loadModule(this.activeModule, this.activeArgs);
+        });
 
         FabaCore.addMediator(FabaRuntimeWebMediator);
     }
