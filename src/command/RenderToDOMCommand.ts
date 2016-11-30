@@ -9,7 +9,7 @@ export default class RenderToDOMCommand extends FabaCommand<FabaStore<any>> {
     execute(event: RenderToDOMEvent) {
         if (!event.child) return;
 
-        const layout = React.createElement(event.rootComponent, {childs: event.child, model: this.store});
-        //ReactDOM.render(layout, document.getElementById(event.htmlContainer));
+        const layout = React.createElement(event.rootComponent, {childs: event.child, model: this.store.data});
+        ReactDOM.render(layout, document.getElementById(event.htmlContainer));
     }
 }

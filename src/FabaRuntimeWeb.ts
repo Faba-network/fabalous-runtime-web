@@ -23,6 +23,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
     constructor(store:FabaStore<any>){
         super();
+
         FabaCore.addMediator(FabaRuntimeWebMediator);
     }
 
@@ -64,7 +65,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         if (matches.length > 0) {
             this.loadModule(matches[0].module, this.normalizeUrlPath(path));
         } else {
-            //this.loadModule(Routes.INDEX.module, this.normalizeUrlPath(path));
+            this.loadModule(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path));
         }
     }
 
