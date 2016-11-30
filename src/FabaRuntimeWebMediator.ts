@@ -1,6 +1,5 @@
 import FabaMediator from "@fabalous/core/FabaMediator";
 import {IFabaMediator} from "@fabalous/core/IFabaMediator";
-import {CLIENT} from "@fabalous/core/FabaCore";
 
 export default class FabaRuntimeWebMediator extends  FabaMediator implements IFabaMediator{
     registerCommands(): void {
