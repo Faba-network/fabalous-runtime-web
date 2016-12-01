@@ -10,25 +10,19 @@ import {FabaWebRoutes} from "./routes/FabaWebRoutes";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import RenderToDOMEvent from "./event/RenderToDOMEvent";
 import FabaStore from "@fabalous/core/FabaStore";
+import LoadModuleEvent from "./event/LoadModuleEvent";
 
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers:Array<any> = [];
-    activeModule: any;
-    activeArgs: Array<string>;
-    activeEvent: any;
+    static activeModule: any;
+    static activeArgs: Array<string>;
+    static activeEvent: any;
 
     routes:FabaWebRoutes;
-
-    rootComponent:any;
+    static rootComponent:any;
 
     constructor(store:FabaStore<any>){
         super(store);
-
-        store.cursor.on("update", (e) => {
-            store.appStore = e.data.currentData;
-            this.loadModule(this.activeModule, this.activeArgs);
-        });
-
         FabaCore.addMediator(FabaRuntimeWebMediator);
     }
 
@@ -68,9 +62,9 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         if (matches.length > 0) {
-            this.loadModule(matches[0].module, this.normalizeUrlPath(path));
+            new LoadModuleEvent(matches[0].module, this.normalizeUrlPath(path)).dispatch();
         } else {
-            this.loadModule(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path));
+            new LoadModuleEvent(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path)).dispatch();
         }
     }
 
@@ -83,33 +77,5 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         return normPath;
-    }
-
-    async loadModule(loadfun: any, args?: Array<string>):Promise<void> {
-        if (!loadfun) return;
-
-        if (this.activeModule === loadfun &&
-            this.activeArgs === args && this.activeEvent) {
-            let k = await this.activeEvent.dispatch();
-            this.render(k.view);
-            return;
-        }
-
-        this.activeModule = loadfun;
-        this.activeArgs = args;
-
-        let comp = await loadfun();
-        FabaCore.addMediator(comp.mediator);
-
-        let t: any = new comp.initEvent;
-        t.args = args;
-
-        this.activeEvent = t;
-        let k = await t.dispatch();
-        this.render(k.view);
-    }
-
-    render(child?) {
-        new RenderToDOMEvent(this.rootComponent, "container", child).dispatch();
     }
 }

@@ -10,7 +10,7 @@ export default class FabaRuntimeWebMediator extends  FabaMediator implements IFa
             this.addCommand(require("./event/ChangeUrlEvent"), require("./command/ChangeUrlCommand"));
             this.addCommand(require("./event/RenderToDOMEvent"), require("./command/RenderToDOMCommand"));
 
-            this.addCommand(require("@fabalous/core/FabaStoreUpdateEvent"), require("./command/RenderToDOMCommand"));
+            this.addCommand(require("@fabalous/core/FabaStoreUpdateEvent"), require("./command/StoreUpdateCommand"));
 
             super.registerCommands();
         }
