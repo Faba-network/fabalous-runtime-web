@@ -20,6 +20,6 @@ export default class LoadModuleCommand extends FabaCommand<FabaStore<any>> {
 
         FabaRuntimeWeb.activeEvent = t;
         let k = await t.dispatch();
-        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", k.view);
+        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", k.view).dispatch();
     }
 }
