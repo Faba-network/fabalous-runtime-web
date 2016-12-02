@@ -7,6 +7,6 @@ import RenderToDOMEvent from "../event/RenderToDOMEvent";
 export default class StoreUpdateCommand extends FabaCommand<FabaStore<any>> {
     async execute(event: FabaStoreUpdateEvent) {
         let k = await FabaRuntimeWeb.activeEvent.dispatch();
-        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", k.view);
+        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", k.view).dispatch();
     }
 }
