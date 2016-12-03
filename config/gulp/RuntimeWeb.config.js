@@ -28,10 +28,6 @@ module.exports = function (gulp){
         var myConfig = developConfig;
 
         myConfig.entry = {
-            vendor: [
-                'react', 'react-dom', 'history'
-            ],
-
             app: [
                 path.join(__workDir, './src/A_Web.ts')
             ]
@@ -44,14 +40,15 @@ module.exports = function (gulp){
                 CLIENT: true,
                 SERVER: false,
                 TEST: false,
+                DEBUG: false,
                 'process.env': {NODE_ENV: JSON.stringify('production')},
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
+                name: 'app',
                 minChunks: Infinity,
                 minChunkSize: 50000,
-                filename: 'vendor.bundle.js'
+                filename: 'app.js'
             }),
 
             new webpack.optimize.UglifyJsPlugin({
@@ -64,9 +61,13 @@ module.exports = function (gulp){
                 sourceMap: false
             }),
 
+            new HtmlWebpackPlugin({
+                hash:true,
+                template: path.join(__workDir, './src/index.ejs')
+            }),
+
             new webpack.NoErrorsPlugin(),
             new CompressionPlugin()
-            //new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true})
         ];
 
         webpack(myConfig).run(onBuild(done));

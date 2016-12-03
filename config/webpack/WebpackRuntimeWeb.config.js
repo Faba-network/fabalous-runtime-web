@@ -54,6 +54,7 @@ module.exports = {
         new ForkCheckerPlugin(),
         new webpack.DefinePlugin({
             CLIENT: true,
+            DEBUG: true,
             SERVER: false,
             TEST: false
         }),
