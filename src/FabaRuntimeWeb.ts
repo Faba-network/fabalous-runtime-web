@@ -8,9 +8,9 @@ import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
-import RenderToDOMEvent from "./event/RenderToDOMEvent";
 import FabaStore from "@fabalous/core/FabaStore";
 import LoadModuleEvent from "./event/LoadModuleEvent";
+import {createHashHistory} from "history";
 
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers:Array<any> = [];
@@ -18,12 +18,27 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeArgs: Array<string>;
     static activeEvent: any;
 
-    routes:FabaWebRoutes;
+    private history = createHashHistory();
     static rootComponent:any;
 
-    constructor(store:FabaStore<any>){
+    listener:any;
+    routes:FabaWebRoutes;
+
+    constructor(store:FabaStore<any>, routes, rootComp, module){
         super(store);
+        this.routes = routes;
+        FabaRuntimeWeb.rootComponent = rootComp;
+
         FabaCore.addMediator(FabaRuntimeWebMediator);
+
+        this.enableHotReload(module);
+
+        if (this.listener) this.listener();
+        this.listener = this.history.listen((location) => {
+            this.handleRoutes(location.pathname);
+        });
+
+        this.handleRoutes();
     }
 
     enableHotReload(module){
