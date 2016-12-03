@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+new webpack.ExtendedAPIPlugin();
 
 function root(p) {
     return path.join(__workDir, p);
@@ -70,7 +71,6 @@ module.exports = {
             hash:true,
             template: path.join(__workDir, './src/index.ejs')
         }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.ExtendedAPIPlugin()
+        new webpack.NamedModulesPlugin()
     ]
 };
