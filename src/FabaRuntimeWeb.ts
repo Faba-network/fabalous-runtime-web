@@ -26,6 +26,16 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         FabaCore.addMediator(FabaRuntimeWebMediator);
     }
 
+    enableHotReload(module){
+        if (module.hot) {
+            module.hot.accept();
+
+            module.hot.dispose(() => {
+                FabaCore.reset();
+            });
+        }
+    }
+
     static addServerEndPoint(conn:FabaTransportBase, name:string):void{
         this.servers.push({name:name, conn:conn});
     }
