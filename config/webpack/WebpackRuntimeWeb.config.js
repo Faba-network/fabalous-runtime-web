@@ -70,6 +70,7 @@ module.exports = {
             hash:true,
             template: path.join(__workDir, './src/index.ejs')
         }),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new webpack.ExtendedAPIPlugin()
     ]
 };

@@ -68,7 +68,9 @@ module.exports = function (gulp){
             }),
 
             new webpack.NoErrorsPlugin(),
-            new CompressionPlugin()
+            new CompressionPlugin(),
+            new webpack.ExtendedAPIPlugin()
+
         ];
 
         webpack(myConfig).run(onBuild(done));
