@@ -1,9 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-//var ExtractTextPlugin = require('extract-text-webpack-plugin');
-//var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function root(p) {
     return path.join(__workDir, p);
@@ -26,10 +25,6 @@ module.exports = {
     },
 
     entry: {
-        vendor: [
-            'react', 'react-dom', 'history'
-        ],
-
         app: [
             path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
             'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
@@ -50,15 +45,7 @@ module.exports = {
                 loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
                 include: [
                     path.join(__workDir, './src/')
-                ],
-            },
-
-            {
-                test: /index.html/,
-                loader: 'url-loader?limit=1&name=[name].[ext]',
-                include: [
-                    path.join(__workDir, './src/')
-                ],
+                ]
             }
         ]
     },
@@ -72,13 +59,16 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
+            name: 'app',
             minChunks: Infinity,
             minChunkSize: 50000,
-            filename: 'vendor.bundle.js'
+            filename: 'app.js'
         }),
         new ProgressBarPlugin(),
-
+        new HtmlWebpackPlugin({
+            hash:true,
+            template: path.join(__workDir, './src/index.ejs')
+        }),
         new webpack.NamedModulesPlugin()
     ]
 };
