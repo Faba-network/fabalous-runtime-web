@@ -3,6 +3,7 @@ module.exports = function (gulp){
     var WebpackDevServer = require("webpack-dev-server");
     var path = require('path');
     var CompressionPlugin = require('compression-webpack-plugin');
+    var HtmlWebpackPlugin = require('html-webpack-plugin');
 
     var developConfig = require("./../webpack/WebpackRuntimeWeb.config");
 
