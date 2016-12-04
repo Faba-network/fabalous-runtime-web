@@ -8,7 +8,7 @@
         "outDir": "./lib/",
         "sourceRoot": "./",
         "jsx": "react",
-        "module": "es6",
+        "module": "commonjs",
         "moduleResolution": "node",
         "lib": ["dom","es6"]
     },
