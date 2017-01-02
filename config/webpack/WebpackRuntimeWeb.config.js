@@ -16,6 +16,7 @@ module.exports = {
     },
 
     cache: true,
+    performance: { hints: false },
 
     // TODO: eval on fast develop
     // devtool: __devTool | 'source-map',
