@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
@@ -53,7 +52,6 @@ module.exports = {
     },
 
     plugins: [
-        new ForkCheckerPlugin(),
         new webpack.DefinePlugin({
             CLIENT: true,
             DEBUG: true,
