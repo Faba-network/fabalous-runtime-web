@@ -3,28 +3,40 @@
  */
 
 import FabaCoreRuntime from "@fabalous/core/FabaCoreRuntime";
-import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
 import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
-import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import FabaStore from "@fabalous/core/FabaStore";
 import LoadModuleEvent from "./event/LoadModuleEvent";
 import {createHashHistory} from "history";
+import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
+
+import {FabaWebMediator} from "./FabaWebMediator";
+import ChangeMediaQueryEvent from "./event/ChangeMediaQueryEvent";
+import ChangeMediaQueryCommand from "./command/ChangeMediaQueryCommand";
+import ChangeRouteEvent from "./event/ChangeRouteEvent";
+import ChangeRouteCommand from "./command/ChangeRouteCommand";
+import ChangeUrlEvent from "./event/ChangeUrlEvent";
+import ChangeUrlCommand from "./command/ChangeUrlCommand";
+import RenderToDOMEvent from "./event/RenderToDOMEvent";
+import RenderToDOMCommand from "./command/RenderToDOMCommand";
+import FabaStoreUpdateEvent from "@fabalous/core/FabaStoreUpdateEvent";
+import StoreUpdateCommand from "./command/StoreUpdateCommand";
+import LoadModuleCommand from "./command/LoadModuleCommand";
 
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
-    static servers:Array<any> = [];
+    static servers: Array<any> = [];
     static activeModule: any;
     static activeArgs: Array<string>;
     static activeEvent: any;
 
     private history = createHashHistory();
-    static rootComponent:any;
+    static rootComponent: any;
 
-    listener:any;
-    routes:FabaWebRoutes;
+    listener: any;
+    routes: FabaWebRoutes;
 
-    constructor(store:FabaStore<any>, routes, rootComp, module){
+    constructor(store: FabaStore<any>, routes, rootComp, module) {
         super(store);
         this.routes = routes;
         FabaRuntimeWeb.rootComponent = rootComp;
@@ -41,7 +53,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         this.handleRoutes();
     }
 
-    enableHotReload(module){
+    enableHotReload(module) {
         if (module.hot) {
             module.hot.accept();
 
@@ -51,12 +63,12 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
     }
 
-    static addServerEndPoint(conn:FabaTransportBase, name:string):void{
-        this.servers.push({name:name, conn:conn});
+    static addServerEndPoint(conn: FabaCoreTransportBase, name: string): void {
+        this.servers.push({name: name, conn: conn});
     }
 
-    static sendToEndpoint(event:any, identifyer:string):void{
-        if (this.servers.length == 0){
+    static sendToEndpoint(event: any, identifyer: string): void {
+        if (this.servers.length == 0) {
             throw new Error("NO ENDPOINT DEFINED");
         }
 
@@ -102,5 +114,18 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         return normPath;
+    }
+}
+
+
+class FabaRuntimeWebMediator extends FabaWebMediator {
+    registerCommands(): void {
+        this.addCommand(ChangeMediaQueryEvent, ChangeMediaQueryCommand);
+        this.addCommand(ChangeRouteEvent, ChangeRouteCommand);
+        this.addCommand(ChangeUrlEvent, ChangeUrlCommand);
+
+        this.addCommand(RenderToDOMEvent, RenderToDOMCommand);
+        this.addCommand(FabaStoreUpdateEvent, StoreUpdateCommand);
+        this.addCommand(LoadModuleEvent, LoadModuleCommand);
     }
 }

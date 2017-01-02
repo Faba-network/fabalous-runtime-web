@@ -1,8 +1,7 @@
-import FabaCommand from "@fabalous/core/FabaCommand";
 import ChangeUrlEvent from "../event/ChangeUrlEvent";
-import FabaStore from "@fabalous/core/FabaStore";
+import {FabaWebCommand} from "../FabaWebCommand";
 
-export default class ChangeUrlCommand extends FabaCommand<FabaStore<any>> {
+export default class ChangeUrlCommand extends FabaWebCommand<any> {
     execute(event: ChangeUrlEvent) {
 
     }
