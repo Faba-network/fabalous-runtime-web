@@ -12,7 +12,6 @@ module.exports = function (gulp){
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
             hot: true,
-            performance: { hints: false },
             stats: {
                 colors: true,
                 chunks:false,
