@@ -5,7 +5,7 @@ import {FabaWebCommand} from "./FabaWebCommand";
  * Created by creativecode on 02.01.17.
  */
 export class FabaWebMediator extends FabaCoreMediator{
-    addCommand(event, command: typeof FabaWebCommand): void {
+    addCommand(event, command): void {
         super.addCommand(event, command);
     }
 }
