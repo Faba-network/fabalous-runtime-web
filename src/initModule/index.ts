@@ -5,10 +5,6 @@ import FabaEvent from "@fabalous/core/FabaEvent";
 import {FabaWebCommand} from "../FabaWebCommand";
 import {FabaWebMediator} from "../FabaWebMediator";
 
-module.exports = {
-    mediator: InitModuleMediator,
-    initEvent: InitModuleEvent,
-};
 
 class InitModuleMediator extends FabaWebMediator{
     registerCommands(){
@@ -27,3 +23,8 @@ class InitModuleCommand extends FabaWebCommand<{}>{
         eve.callBack();
     }
 }
+
+module.exports = {
+    mediator: InitModuleMediator,
+    initEvent: InitModuleEvent,
+};
