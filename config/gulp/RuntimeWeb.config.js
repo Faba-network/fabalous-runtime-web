@@ -38,11 +38,10 @@ module.exports = function (gulp){
 
         myConfig.plugins = [
             new webpack.DefinePlugin({
-                CLIENT: true,
-                SERVER: false,
-                TEST: false,
-                DEBUG: false,
-                'process.env': {NODE_ENV: JSON.stringify('production')},
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production'),
+                    RUNTIME_WEB: 'true'
+                }
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -64,7 +63,7 @@ module.exports = function (gulp){
 
             new HtmlWebpackPlugin({
                 hash:true,
-                template: path.join(__workDir, './src/index.ejs')
+                template: path.join(__workDir, './src/common/web/index.ejs')
             }),
 
             new webpack.NoErrorsPlugin(),

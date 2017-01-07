@@ -53,10 +53,10 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
-            CLIENT: true,
-            DEBUG: true,
-            SERVER: false,
-            TEST: false
+            'process.env': {
+                DEBUG: 'true',
+                RUNTIME_WEB: 'true'
+            }
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
