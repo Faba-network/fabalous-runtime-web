@@ -68,7 +68,7 @@ module.exports = {
         new ProgressBarPlugin(),
         new HtmlWebpackPlugin({
             hash:true,
-            template: path.join(__workDir, './src/index.ejs')
+            template: path.join(__workDir, './src/common/web/index.ejs')
         }),
         new webpack.NamedModulesPlugin()
     ]
