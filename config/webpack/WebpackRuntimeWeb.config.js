@@ -53,8 +53,8 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.FABALOUS_WEB': '"true"',
-            'process.env.FABALOUS_DEBUG': '"true"'
+            'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
+            'process.env.FABALOUS_DEBUG': JSON.stringify("1")
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
