@@ -10,7 +10,9 @@
         "jsx": "react",
         "module": "es6",
         "moduleResolution": "node",
-        "lib": ["dom","es6"]
+        "lib": ["dom","es6"],
+        "importHelpers": true
+
     },
 
     "exclude": [

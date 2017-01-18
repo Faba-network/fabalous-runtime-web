@@ -23,4 +23,13 @@ export class FabaWebCommand<TStore> extends FabaCoreCommand<TStore>{
     sendToEndpoint(event:FabaEvent){
 
     }
+
+    createWorker(mod, ev){
+        const worker = new mod();
+        worker.postMessage(JSON.stringify(ev));
+
+        worker.addEventListener("message", function (event) {
+            console.log(event);
+        });
+    }
 }
