@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "module": "es6",
         "noImplicitAny": false,
         "declaration": true,
         "suppressImplicitAnyIndexErrors": true,
@@ -8,7 +9,6 @@
         "outDir": "./lib/",
         "sourceRoot": "./",
         "jsx": "react",
-        "module": "es6",
         "moduleResolution": "node",
         "lib": ["dom","es6"],
         "importHelpers": true

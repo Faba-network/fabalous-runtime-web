@@ -8,18 +8,30 @@ function root(p) {
     return path.join(__workDir, p);
 }
 
+function getDevTool(){
+    if (__devTool) return __devTool;
+    else return 'source-map';
+}
+
+function getHost(){
+    if (__devTool) return __devTool;
+    else return 'source-map';
+}
+
+function getPort(){
+    if (__devTool) return __devTool;
+    else return 'source-map';
+}
+
 module.exports = {
     output: {
-        path: path.join(__workDir, './dist/web'),
+        path: path.join(__workDir, './dist/web/debug'),
         chunkFilename: 'bundle-[chunkhash].js'
     },
 
     cache: true,
     performance: { hints: false },
-
-    // TODO: eval on fast develop
-    // devtool: __devTool | 'source-map',
-    devtool: 'source-map',
+    devtool: getDevTool(),
 
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
@@ -53,6 +65,7 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
+            'process.env.NODE_ENV':  JSON.stringify("production"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
             'process.env.FABALOUS_DEBUG': JSON.stringify("1")
         }),

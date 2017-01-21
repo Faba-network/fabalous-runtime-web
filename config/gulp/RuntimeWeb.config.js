@@ -38,9 +38,9 @@ module.exports = function (gulp){
 
         myConfig.plugins = [
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': '"production"',
-                'process.env.FABALOUS_WEB': '"true"',
-                'process.env.FABALOUS_DEBUG': '"true"'
+                'process.env.NODE_ENV':  JSON.stringify("production"),
+                'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
+                'process.env.FABALOUS_DEBUG': JSON.stringify("1")
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
