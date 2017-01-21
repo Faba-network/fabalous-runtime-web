@@ -11,7 +11,7 @@ export default class LoadModuleCommand extends FabaWebCommand<any> {
         FabaRuntimeWeb.activeModule = event.loadfun;
         FabaRuntimeWeb.activeArgs = event.args;
 
-        let comp = await event.loadfun();
+        let comp = await event.loadfun().default;
         FabaCore.addMediator(comp.mediator);
 
         let t: any = new comp.initEvent;

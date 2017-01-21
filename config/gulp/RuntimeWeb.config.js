@@ -7,6 +7,16 @@ module.exports = function (gulp){
 
     var developConfig = require("./../webpack/WebpackRuntimeWeb.config");
 
+    function getHost(){
+        if (__host) return __host;
+        else return 'localhost';
+    }
+
+    function getPort(){
+        if (__port) return __port;
+        else return '8080';
+    }
+
     gulp.task('runtime-web-watch', function() {
         new WebpackDevServer(webpack(developConfig), {
             publicPath: '/',
@@ -20,7 +30,7 @@ module.exports = function (gulp){
                 version:true,
                 errors:true
             }
-        }).listen(8080, 'localhost', function(err) {
+        }).listen(getPort(), getHost(), function(err) {
             if (err) console.error(err);
         });
     });

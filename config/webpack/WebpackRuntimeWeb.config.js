@@ -14,13 +14,13 @@ function getDevTool(){
 }
 
 function getHost(){
-    if (__devTool) return __devTool;
-    else return 'source-map';
+    if (__host) return __host;
+    else return 'localhost';
 }
 
 function getPort(){
-    if (__devTool) return __devTool;
-    else return 'source-map';
+    if (__port) return __port;
+    else return '8080';
 }
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
     entry: {
         app: [
             path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
-            'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
+            'webpack-dev-server/client?http://'+getHost()+':'+getPort()+'/', // WebpackDevServer host and port
             'webpack/hot/only-dev-server' // "only" prevents reload on syntax errors
         ]
     },

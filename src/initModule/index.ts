@@ -29,8 +29,9 @@ class InitModuleCommand extends FabaWebCommand<{}>{
         eve.callBack();
     }
 }
-
-module.exports = {
+const def:any = {
     mediator: InitModuleMediator,
     initEvent: InitModuleEvent,
 };
+
+export default def;
