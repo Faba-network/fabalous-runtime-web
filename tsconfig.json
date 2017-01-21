@@ -7,12 +7,12 @@
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
         "outDir": "./lib/",
-        "sourceRoot": "./",
+        "sourceRoot": "./src/",
         "jsx": "react",
         "moduleResolution": "node",
-        "lib": ["dom","es6"],
-        "importHelpers": true
-
+        "lib": ["dom","es7"],
+        "importHelpers": true,
+        "forceConsistentCasingInFileNames": true
     },
 
     "exclude": [
