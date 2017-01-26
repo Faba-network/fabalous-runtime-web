@@ -101,7 +101,7 @@ module.exports = function (gulp){
         var myConfig = developConfig;
 
         myConfig.output = {
-            path: path.join(__workDir, './dist/web/debug/'),
+            path: path.join(__workDir, './dist/web/'),
             chunkFilename: 'bundle-[chunkhash].js'
         };
 
