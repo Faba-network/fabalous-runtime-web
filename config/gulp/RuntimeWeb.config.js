@@ -38,6 +38,11 @@ module.exports = function (gulp){
     gulp.task('runtime-web-build', function(done) {
         var myConfig = developConfig;
 
+        myConfig.output = {
+            path: path.join(__workDir, './dist/web/'),
+            chunkFilename: 'bundle-[chunkhash].js'
+        };
+
         myConfig.entry = {
             app: [
                 path.join(__workDir, './src/A_Web.ts')
@@ -55,9 +60,16 @@ module.exports = function (gulp){
 
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'app',
-                minChunks: Infinity,
-                minChunkSize: 50000,
-                filename: 'app.js'
+                minChunks: function(module, count) {
+                    return !isExternal(module) && count >= 2; // adjustable cond
+                }
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendors',
+                chunks:["app"],
+                minChunks: function(module) {
+                    return isExternal(module);
+                }
             }),
 
             new webpack.optimize.UglifyJsPlugin({
@@ -67,7 +79,8 @@ module.exports = function (gulp){
                 output: {
                     comments: false
                 },
-                sourceMap: false
+                sourceMap: false,
+                minimize: true
             }),
 
             new HtmlWebpackPlugin({
@@ -75,7 +88,7 @@ module.exports = function (gulp){
                 template: path.join(__workDir, './src/common/web/index.ejs')
             }),
 
-            new webpack.NoErrorsPlugin(),
+            new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
             new webpack.ExtendedAPIPlugin()
 
@@ -94,4 +107,16 @@ module.exports = function (gulp){
             if(done) done();
         }
     }
+}
+
+function isExternal(module) {
+    var userRequest = module.userRequest;
+
+    if (typeof userRequest !== 'string') {
+        return false;
+    }
+
+    return userRequest.indexOf('bower_components') >= 0 ||
+        userRequest.indexOf('node_modules') >= 0 ||
+        userRequest.indexOf('libraries') >= 0;
 }

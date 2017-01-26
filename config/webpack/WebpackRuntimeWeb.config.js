@@ -4,23 +4,36 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
 
-function root(p) {
-    return path.join(__workDir, p);
-}
-
 function getDevTool(){
-    if (__devTool) return __devTool;
-    else return 'source-map';
+    try {
+        return __devTool;
+    } catch(e){
+        return 'source-map';
+    }
 }
 
 function getHost(){
-    if (__host) return __host;
-    else return 'localhost';
+    try {
+        return __host;
+    } catch (e){
+        return 'localhost'
+    }
 }
 
 function getPort(){
-    if (__port) return __port;
-    else return '8080';
+    try{
+        return __port;
+    } catch (e){
+        return '8080';
+    }
+}
+
+function getAlias(){
+    try {
+        return __alias;
+    } catch (e){
+        return {};
+    }
 }
 
 module.exports = {
@@ -35,6 +48,7 @@ module.exports = {
 
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
+        alias: getAlias()
     },
 
     entry: {
@@ -65,16 +79,23 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV':  JSON.stringify("production"),
+            'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
             'process.env.FABALOUS_DEBUG': JSON.stringify("1")
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'app',
-            minChunks: Infinity,
-            minChunkSize: 50000,
-            filename: 'app.js'
+            minChunks: function(module, count) {
+                return !isExternal(module) && count >= 2; // adjustable cond
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            chunks:["app"],
+            minChunks: function(module) {
+                return isExternal(module);
+            }
         }),
         new ProgressBarPlugin(),
         new HtmlWebpackPlugin({
@@ -84,3 +105,15 @@ module.exports = {
         new webpack.NamedModulesPlugin()
     ]
 };
+
+function isExternal(module) {
+    var userRequest = module.userRequest;
+
+    if (typeof userRequest !== 'string') {
+        return false;
+    }
+
+    return userRequest.indexOf('bower_components') >= 0 ||
+        userRequest.indexOf('node_modules') >= 0 ||
+        userRequest.indexOf('libraries') >= 0;
+}
