@@ -4,7 +4,7 @@
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
     "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder && gulp replace",
-    "install": "cp -Rf ./lib/* ./ && rm -r ./lib"
+    "install": "shx cp -Rf ./lib/* ./ && shx rm -r ./lib"
   },
   "author": "Jörg Wasmeier",
   "license": "ISC",
@@ -34,11 +34,12 @@
     "react-dom": "^15.4.2",
     "react-hot-loader": "^1.3.1",
     "tslib": "^1.5.0",
-    "typescript": "^2.1.5",
+    "typescript": "^2.2.0",
     "typestyle": "^0.26.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "shx": "^0.2.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
