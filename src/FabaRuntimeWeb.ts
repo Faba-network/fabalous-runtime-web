@@ -12,6 +12,14 @@ import RenderToDOMEvent from "./event/RenderToDOMEvent";
 import FabaStore from "@fabalous/core/FabaStore";
 import LoadModuleEvent from "./event/LoadModuleEvent";
 
+/**
+ * Runtime class and startpoint for web Project's
+ * 
+ * Extend this class with your own logic.
+ * 
+ * Need an store (FabaStore or FabaImmutableStore) as argument
+ */
+
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers:Array<any> = [];
     static activeModule: any;
@@ -21,15 +29,31 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     routes:FabaWebRoutes;
     static rootComponent:any;
 
+    /**
+     * Contructor expets an store and register the FabaRuntimeWebMediator
+     * @param store FabaStore or FabaImmutableStore which is avaible for the commands
+     */
     constructor(store:FabaStore<any>){
         super(store);
         FabaCore.addMediator(FabaRuntimeWebMediator);
     }
 
+    /**
+     * Add's server inouts that can be used in the commands
+     * @param conn Connection Object (Socket / Http.....)
+     * @param name Name of the Connection
+     */
     static addServerEndPoint(conn:FabaTransportBase, name:string):void{
         this.servers.push({name:name, conn:conn});
     }
 
+    /**
+     * TODO: Need to be refactored and integraded in the commands
+     * 
+     * Static function that send an event to an ENDPOINT (Obsulute)
+     * @param event Any FabaEvent object
+     * @param identifyer Identifyer of the Endpoint that should be used
+     */
     static sendToEndpoint(event:any, identifyer:string):void{
         if (this.servers.length == 0){
             throw new Error("NO ENDPOINT DEFINED");
@@ -40,6 +64,10 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
     }
 
+    /**
+     * Handle the routes it hey change
+     * @param pathname Parthname as identifyer
+     */
     handleRoutes(pathname?: string) {
         if (!pathname) pathname = window.location.hash.replace("#", "");
 
@@ -68,6 +96,13 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
     }
 
+    /**
+     * TODO: Need refactor
+     *
+     * 
+     * Helper function that normilaze the Routepath
+     * @param path 
+     */
     normalizeUrlPath(path: Array<string>) {
         let normPath: Array<string> = [];
 
