@@ -1,13 +1,8 @@
-import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
 import {FabaEventResultType} from "@fabalous/core/FabaEvent";
 import FabaEvent from "@fabalous/core/FabaEvent";
+import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
 
-/**
- * Created by creativecode on 25.12.15.
- */
-
-declare var require;
-export default class FabaApiConnection extends FabaTransportBase {
+export default class FabaApiConnection extends FabaCoreTransportBase {
   private url:string;
 
   private sendEventList:Array<FabaEvent>;

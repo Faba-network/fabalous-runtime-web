@@ -1,16 +1,18 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "module": "commonjs",
         "noImplicitAny": false,
         "declaration": true,
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
         "outDir": "./lib/",
-        "sourceRoot": "./",
+        "sourceRoot": "./src/",
         "jsx": "react",
-        "module": "es6",
         "moduleResolution": "node",
-        "lib": ["dom","es6"]
+        "lib": ["dom","es7"],
+        "importHelpers": true,
+        "forceConsistentCasingInFileNames": true
     },
 
     "exclude": [

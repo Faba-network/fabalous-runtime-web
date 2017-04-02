@@ -1,38 +1,60 @@
 var path = require('path');
 var webpack = require('webpack');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-//var ExtractTextPlugin = require('extract-text-webpack-plugin');
-//var extractLESS = new ExtractTextPlugin({filename: '[name].css', disable: false, allChunks: true});
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+new webpack.ExtendedAPIPlugin();
 
-function root(p) {
-    return path.join(__workDir, p);
+function getDevTool(){
+    try {
+        return __devTool;
+    } catch(e){
+        return 'source-map';
+    }
+}
+
+function getHost(){
+    try {
+        return __host;
+    } catch (e){
+        return 'localhost'
+    }
+}
+
+function getPort(){
+    try{
+        return __port;
+    } catch (e){
+        return '8080';
+    }
+}
+
+function getAlias(){
+    try {
+        return __alias;
+    } catch (e){
+        return {};
+    }
 }
 
 module.exports = {
     output: {
-        path: path.join(__workDir, './dist/web'),
+        path: path.join(__workDir, './dist/web/debug'),
         chunkFilename: 'bundle-[chunkhash].js'
     },
 
     cache: true,
-
-    // TODO: eval on fast develop
-    // devtool: __devTool | 'source-map',
-    devtool: 'source-map',
+    performance: { hints: false },
+    devtool: getDevTool(),
 
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
+        alias: getAlias()
     },
 
     entry: {
-        vendor: [
-            'react', 'react-dom', 'history'
-        ],
-
         app: [
             path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
-            'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
+            'webpack-dev-server/client?http://'+getHost()+':'+getPort()+'/', // WebpackDevServer host and port
             'webpack/hot/only-dev-server' // "only" prevents reload on syntax errors
         ]
     },
@@ -50,35 +72,48 @@ module.exports = {
                 loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
                 include: [
                     path.join(__workDir, './src/')
-                ],
-            },
-
-            {
-                test: /index.html/,
-                loader: 'url-loader?limit=1&name=[name].[ext]',
-                include: [
-                    path.join(__workDir, './src/')
-                ],
+                ]
             }
         ]
     },
 
     plugins: [
-        new ForkCheckerPlugin(),
         new webpack.DefinePlugin({
-            CLIENT: true,
-            SERVER: false,
-            TEST: false
+            'process.env.NODE_ENV':  JSON.stringify("development"),
+            'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
+            'process.env.FABALOUS_DEBUG': JSON.stringify("1")
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity,
-            minChunkSize: 50000,
-            filename: 'vendor.bundle.js'
+            name: 'app',
+            minChunks: function(module, count) {
+                return !isExternal(module) && count >= 2; // adjustable cond
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            chunks:["app"],
+            minChunks: function(module) {
+                return isExternal(module);
+            }
         }),
         new ProgressBarPlugin(),
-
+        new HtmlWebpackPlugin({
+            hash:true,
+            template: path.join(__workDir, './src/common/web/index.ejs')
+        }),
         new webpack.NamedModulesPlugin()
     ]
 };
+
+function isExternal(module) {
+    var userRequest = module.userRequest;
+
+    if (typeof userRequest !== 'string') {
+        return false;
+    }
+
+    return userRequest.indexOf('bower_components') >= 0 ||
+        userRequest.indexOf('node_modules') >= 0 ||
+        userRequest.indexOf('libraries') >= 0;
+}

@@ -1,10 +1,9 @@
 import ChangeMediaQueryEvent from "../event/ChangeMediaQueryEvent";
-import FabaCommand from "@fabalous/core/FabaCommand";
-import FabaStore from "@fabalous/core/FabaStore";
+import {FabaWebCommand} from "../FabaWebCommand";
 
-export default class ChangeMediaQueryCommand extends FabaCommand<FabaStore<any>> {
+export default class ChangeMediaQueryCommand extends FabaWebCommand<any> {
     execute(event: ChangeMediaQueryEvent) {
-        this.store.set("layout.landscape", event.landscape);
-        this.store.set("layout.mobile", event.mobile);
+        this.setStore("layout.landscape", event.landscape);
+        this.setStore("layout.mobile", event.mobile);
     }
 }
