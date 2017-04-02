@@ -1,6 +1,6 @@
 import FabaCoreCommand from "@fabalous/core/FabaCoreCommand";
-import FabaImmutableStore from "@fabalous/core/FabaImmutableStore";
 import FabaEvent from "@fabalous/core/FabaEvent";
+import FabaImmutableStore from "@fabalous/core/store/FabaImmutableStore";
 /**
  * Created by creativecode on 02.01.17.
  */

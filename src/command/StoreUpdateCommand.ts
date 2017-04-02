@@ -1,4 +1,4 @@
-import FabaStoreUpdateEvent from "@fabalous/core/FabaStoreUpdateEvent";
+import FabaStoreUpdateEvent from "@fabalous/core/event/FabaStoreUpdateEvent";
 import FabaRuntimeWeb from "../FabaRuntimeWeb";
 import RenderToDOMEvent from "../event/RenderToDOMEvent";
 import {FabaWebCommand} from "../FabaWebCommand";

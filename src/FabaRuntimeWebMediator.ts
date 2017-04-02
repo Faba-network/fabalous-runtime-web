@@ -1,13 +1,11 @@
-import FabaMediator from "@fabalous/core/FabaMediator";
-import {IFabaMediator} from "@fabalous/core/IFabaMediator";
-
+import FabaCoreMediator, {IFabaCoreMediator} from "@fabalous/core/FabaCoreMediator";
 
 /**
  * FabaRuntimeWebMediator which link usefull methods
- * 
-
+ *
  */
-export default class FabaRuntimeWebMediator extends  FabaMediator implements IFabaMediator{
+
+export default class FabaRuntimeWebMediator extends FabaCoreMediator implements IFabaCoreMediator{
 
     /**
      * Links the Event and Commands
@@ -18,15 +16,14 @@ export default class FabaRuntimeWebMediator extends  FabaMediator implements IFa
      * FabaStoreUpdateEvent (Event fires on StoreUpdate)
      */
     registerCommands(): void {
-        if (CLIENT){
-            this.addCommand(require("./event/ChangeMediaQueryEvent"), require("./command/ChangeMediaQueryCommand"));
-            this.addCommand(require("./event/ChangeRouteEvent"), require("./command/ChangeRouteCommand"));
-            this.addCommand(require("./event/ChangeUrlEvent"), require("./command/ChangeUrlCommand"));
-            this.addCommand(require("./event/RenderToDOMEvent"), require("./command/RenderToDOMCommand"));
+        this.addCommand(require("./event/ChangeMediaQueryEvent"), require("./command/ChangeMediaQueryCommand"));
+        this.addCommand(require("./event/ChangeRouteEvent"), require("./command/ChangeRouteCommand"));
+        this.addCommand(require("./event/ChangeUrlEvent"), require("./command/ChangeUrlCommand"));
+        this.addCommand(require("./event/RenderToDOMEvent"), require("./command/RenderToDOMCommand"));
 
-            this.addCommand(require("@fabalous/core/FabaStoreUpdateEvent"), require("./command/StoreUpdateCommand"));
+        this.addCommand(require("@fabalous/core/FabaStoreUpdateEvent"), require("./command/StoreUpdateCommand"));
 
-            super.registerCommands();
-        }
+        super.registerCommands();
+
     }
 }

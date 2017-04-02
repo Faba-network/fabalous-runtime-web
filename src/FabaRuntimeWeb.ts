@@ -3,14 +3,13 @@
  */
 
 import FabaCoreRuntime from "@fabalous/core/FabaCoreRuntime";
-import FabaTransportBase from "@fabalous/core/transport/FabaTransportBase";
 import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
-import RenderToDOMEvent from "./event/RenderToDOMEvent";
-import FabaStore from "@fabalous/core/FabaStore";
 import LoadModuleEvent from "./event/LoadModuleEvent";
+import FabaStore from "@fabalous/core/store/FabaStore";
+import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
 
 /**
  * Runtime class and startpoint for web Project's
@@ -43,7 +42,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param conn Connection Object (Socket / Http.....)
      * @param name Name of the Connection
      */
-    static addServerEndPoint(conn:FabaTransportBase, name:string):void{
+    static addServerEndPoint(conn:FabaCoreTransportBase, name:string):void{
         this.servers.push({name:name, conn:conn});
     }
 
