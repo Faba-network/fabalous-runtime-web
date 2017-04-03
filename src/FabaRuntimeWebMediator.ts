@@ -10,6 +10,8 @@ import ChangeUrlCommand from "./command/ChangeUrlCommand";
 import RenderToDOMCommand from "./command/RenderToDOMCommand";
 import StoreUpdateCommand from "./command/StoreUpdateCommand";
 import {FabaWebMediator} from "./FabaWebMediator";
+import LoadModuleEvent from "./event/LoadModuleEvent";
+import LoadModuleCommand from "./command/LoadModuleCommand";
 
 /**
  * FabaRuntimeWebMediator which link usefull methods
@@ -32,5 +34,6 @@ export default class FabaRuntimeWebMediator extends FabaWebMediator implements I
         this.addCommand(ChangeUrlEvent, ChangeUrlCommand);
         this.addCommand(RenderToDOMEvent, RenderToDOMCommand);
         this.addCommand(FabaStoreUpdateEvent, StoreUpdateCommand);
+        this.addCommand(LoadModuleEvent, LoadModuleCommand);
     }
 }
