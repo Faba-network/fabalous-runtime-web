@@ -65,8 +65,7 @@ describe("FabaRuntimeWebTest", ()=>{
         FabaCore.addMediator(TestMediator);
 
         new TestStoreChangeEvent().dispatch().then((e)=>{
-            setTimeout(()=>{
-               console.log(FabaCore.store.serialize());
+            setTimeout(()=> {
                 done();
             }, 2000);
         });

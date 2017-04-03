@@ -6,10 +6,11 @@ import FabaCoreRuntime from "@fabalous/core/FabaCoreRuntime";
 import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
-import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import LoadModuleEvent from "./event/LoadModuleEvent";
-import FabaStore from "@fabalous/core/store/FabaStore";
+import {createHashHistory} from "history";
 import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
+import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
+import FabaStore from "@fabalous/core/store/FabaStore";
 
 /**
  * Runtime class and startpoint for web Project's
@@ -18,23 +19,57 @@ import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBas
  *
  * Need an store (FabaStore or FabaImmutableStore) as argument
  */
-
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
-    static servers:Array<any> = [];
+    static servers: Array<any> = [];
     static activeModule: any;
     static activeArgs: Array<string>;
     static activeEvent: any;
 
-    routes:FabaWebRoutes;
-    static rootComponent:any;
+    private history = createHashHistory();
+    static rootComponent: any;
+
+    listener: any;
+    routes: FabaWebRoutes;
 
     /**
+     *  /**
      * Contructor expets an store and register the FabaRuntimeWebMediator
      * @param store FabaStore or FabaImmutableStore which is avaible for the commands
+     * @param routes
+     * @param rootComp
+     * @param module
      */
-    constructor(store:FabaStore<any>){
+    constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any) {
         super(store);
+        this.routes = routes;
+        FabaRuntimeWeb.rootComponent = rootComp;
+
         FabaCore.addMediator(FabaRuntimeWebMediator);
+
+        if (module){
+            this.enableHotReload(module);
+        }
+
+        if (this.listener) this.listener();
+        this.listener = this.history.listen((location) => {
+            this.handleRoutes(location.pathname);
+        });
+
+        this.handleRoutes();
+    }
+
+    /**
+     * Enable hot module reload
+     * @param module
+     */
+    enableHotReload(module) {
+        if (module && module.hot) {
+            module.hot.accept();
+
+            module.hot.dispose(() => {
+                FabaCore.reset();
+            });
+        }
     }
 
     /**
@@ -42,8 +77,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param conn Connection Object (Socket / Http.....)
      * @param name Name of the Connection
      */
-    static addServerEndPoint(conn:FabaCoreTransportBase, name:string):void{
-        this.servers.push({name:name, conn:conn});
+    static addServerEndPoint(conn: FabaCoreTransportBase, name: string): void {
+        this.servers.push({name: name, conn: conn});
     }
 
     /**
@@ -53,8 +88,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param event Any FabaEvent object
      * @param identifyer Identifyer of the Endpoint that should be used
      */
-    static sendToEndpoint(event:any, identifyer:string):void{
-        if (this.servers.length == 0){
+    static sendToEndpoint(event: any, identifyer: string): void {
+        if (this.servers.length == 0) {
             throw new Error("NO ENDPOINT DEFINED");
         }
 
@@ -97,7 +132,6 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
     /**
      * TODO: Need refactor
-     *
      *
      * Helper function that normilaze the Routepath
      * @param path
