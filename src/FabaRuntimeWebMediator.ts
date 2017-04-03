@@ -1,11 +1,22 @@
-import FabaCoreMediator, {IFabaCoreMediator} from "@fabalous/core/FabaCoreMediator";
+import {IFabaCoreMediator} from "@fabalous/core/FabaCoreMediator";
+import ChangeMediaQueryEvent from "./event/ChangeMediaQueryEvent";
+import ChangeRouteEvent from "./event/ChangeRouteEvent";
+import ChangeUrlEvent from "./event/ChangeUrlEvent";
+import RenderToDOMEvent from "./event/RenderToDOMEvent";
+import FabaStoreUpdateEvent from "@fabalous/core/event/FabaStoreUpdateEvent";
+import ChangeMediaQueryCommand from "./command/ChangeMediaQueryCommand";
+import ChangeRouteCommand from "./command/ChangeRouteCommand";
+import ChangeUrlCommand from "./command/ChangeUrlCommand";
+import RenderToDOMCommand from "./command/RenderToDOMCommand";
+import StoreUpdateCommand from "./command/StoreUpdateCommand";
+import {FabaWebMediator} from "./FabaWebMediator";
 
 /**
  * FabaRuntimeWebMediator which link usefull methods
  *
  */
 
-export default class FabaRuntimeWebMediator extends FabaCoreMediator implements IFabaCoreMediator{
+export default class FabaRuntimeWebMediator extends FabaWebMediator implements IFabaCoreMediator{
 
     /**
      * Links the Event and Commands
@@ -16,14 +27,10 @@ export default class FabaRuntimeWebMediator extends FabaCoreMediator implements 
      * FabaStoreUpdateEvent (Event fires on StoreUpdate)
      */
     registerCommands(): void {
-        this.addCommand(require("./event/ChangeMediaQueryEvent"), require("./command/ChangeMediaQueryCommand"));
-        this.addCommand(require("./event/ChangeRouteEvent"), require("./command/ChangeRouteCommand"));
-        this.addCommand(require("./event/ChangeUrlEvent"), require("./command/ChangeUrlCommand"));
-        this.addCommand(require("./event/RenderToDOMEvent"), require("./command/RenderToDOMCommand"));
-
-        this.addCommand(require("@fabalous/core/FabaStoreUpdateEvent"), require("./command/StoreUpdateCommand"));
-
-        super.registerCommands();
-
+        this.addCommand(ChangeMediaQueryEvent, ChangeMediaQueryCommand);
+        this.addCommand(ChangeRouteEvent, ChangeRouteCommand);
+        this.addCommand(ChangeUrlEvent, ChangeUrlCommand);
+        this.addCommand(RenderToDOMEvent, RenderToDOMCommand);
+        this.addCommand(FabaStoreUpdateEvent, StoreUpdateCommand);
     }
 }

@@ -6,10 +6,21 @@ const shallowCompare = require('react-addons-shallow-compare');
  */
 
 export default class FabaWebBaseComponent<TProps> extends React.Component<TProps, null>{
+
+    /**
+     * Constructor
+     * @param props
+     */
     constructor(props:TProps){
         super(props);
     }
 
+    /**
+     * Implemented by React
+     * @param nextProps
+     * @param nextState
+     * @returns {any}
+     */
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
     }

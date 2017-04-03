@@ -12,7 +12,8 @@
         "moduleResolution": "node",
         "lib": ["dom","es7"],
         "importHelpers": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": false
     },
     "exclude": [
         "node_modules",

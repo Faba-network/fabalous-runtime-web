@@ -8,6 +8,10 @@ export default class InitModuleView extends FabaWebBaseComponent<null>{
         super(props);
     }
 
+    /**
+     *
+     * @returns {any}
+     */
     render(): ReactElement<any> {
         return(
             <div>
