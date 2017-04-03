@@ -103,6 +103,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param pathname Parthname as identifyer
      */
     handleRoutes(pathname?: string) {
+        if (!this.routes) return;
+
         if (!pathname) pathname = window.location.hash.replace("#", "");
 
         // Split path
