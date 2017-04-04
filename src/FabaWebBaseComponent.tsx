@@ -2,10 +2,9 @@ import * as React from "react";
 const shallowCompare = require('react-addons-shallow-compare');
 
 /**
- * Faba BaseComponent that use shallowCompare for quick rendering if it neeeds to
+ * Faba BaseComponent that use shallowCompare for quick rendering if it needs to
  */
-
-export default class FabaWebBaseComponent<TProps> extends React.Component<TProps, null>{
+export default class FabaWebBaseComponent<TProps> extends React.Component<TProps, void>{
 
     /**
      * Constructor

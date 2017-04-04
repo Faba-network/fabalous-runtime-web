@@ -36,6 +36,16 @@ function getAlias(){
     }
 }
 
+//path.join(__workDir, './src/common/web/index.ejs')
+function getIndexFile(){
+    try {
+        return './index.ejs';
+    } catch (e){
+        return path.join(__workDir, './src/common/web/index.ejs');
+    }
+}
+
+
 module.exports = {
     output: {
         path: path.join(__workDir, './dist/web/debug'),
@@ -86,6 +96,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'app',
+            children: true,
             minChunks: function(module, count) {
                 return !isExternal(module) && count >= 2; // adjustable cond
             }
@@ -93,6 +104,7 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',
             chunks:["app"],
+            children: true,
             minChunks: function(module) {
                 return isExternal(module);
             }
@@ -100,7 +112,7 @@ module.exports = {
         new ProgressBarPlugin(),
         new HtmlWebpackPlugin({
             hash:true,
-            template: path.join(__workDir, './src/common/web/index.ejs')
+            template: getIndexFile()
         }),
         new webpack.NamedModulesPlugin()
     ]
