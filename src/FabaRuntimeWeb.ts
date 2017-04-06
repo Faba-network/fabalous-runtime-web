@@ -68,7 +68,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
             this.handleRoutes(location.pathname);
         });
 
-        this.handleRoutes();
+        this.handleRoutes(location.pathname);
     }
 
     /**
@@ -118,7 +118,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     handleRoutes(pathname?: string) {
         if (!this.routes) return;
 
-        //if (!pathname) pathname = window.location.hash.replace("#", "");
+        if (!pathname) pathname = "";
 
         // Split path
         let path: Array<string> = pathname.split("/");
