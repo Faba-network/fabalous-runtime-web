@@ -39,12 +39,19 @@ function getAlias(){
 //path.join(__workDir, './src/common/web/index.ejs')
 function getIndexFile(){
     try {
-        return './index.ejs';
-    } catch (e){
         return path.join(__workDir, './src/common/web/index.ejs');
+    } catch (e){
+        return './node_modules/@fabalous/runtime-web/config/webpack/index.ejs';
     }
 }
 
+function getDebugMode(){
+    try {
+        return __debugMode;
+    } catch (e){
+        return 0;
+    }
+}
 
 module.exports = {
     output: {
@@ -91,7 +98,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-            'process.env.FABALOUS_DEBUG': JSON.stringify("1")
+            'process.env.FABALOUS_DEBUG': JSON.stringify(1)
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -103,7 +110,6 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',
-            chunks:["app"],
             children: true,
             minChunks: function(module) {
                 return isExternal(module);

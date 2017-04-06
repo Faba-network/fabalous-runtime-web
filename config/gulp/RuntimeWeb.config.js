@@ -22,6 +22,7 @@ module.exports = function (gulp){
             publicPath: '/',
             contentBase: path.join(__workDir, './dist/web/'),
             hot: true,
+            historyApiFallback: true,
             stats: {
                 colors: true,
                 chunks:false,
@@ -29,6 +30,18 @@ module.exports = function (gulp){
                 modules:false,
                 version:true,
                 errors:true
+            },
+            proxy: {
+                "/api": {
+                    "target": {
+                        "host": "localhost",
+                        "protocol": 'http:',
+                        "port": 8081
+                    },
+                    ignorePath: true,
+                    changeOrigin: true,
+                    secure: false
+                }
             }
         }).listen(getPort(), getHost(), function(err) {
             if (err) console.error(err);

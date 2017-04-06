@@ -7,7 +7,7 @@ import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
 import LoadModuleEvent from "./event/LoadModuleEvent";
-import {createHashHistory} from "history";
+import {createHashHistory, createBrowserHistory, createMemoryHistory} from "history";
 import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import FabaStore from "@fabalous/core/store/FabaStore";
@@ -25,7 +25,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeArgs: Array<string>;
     static activeEvent: any;
 
-    private history = createHashHistory();
+    private history;
     static rootComponent: any;
 
     listener: any;
@@ -39,8 +39,21 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param rootComp
      * @param module
      */
-    constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any) {
+    constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any, history:HistoryMode = HistoryMode.BROWSER) {
         super(store);
+
+        switch (history){
+            case HistoryMode.BROWSER:
+                this.history = createBrowserHistory();
+                break;
+            case HistoryMode.HASH:
+                this.history = createHashHistory();
+                break;
+            case HistoryMode.MEMORY:
+                this.history = createMemoryHistory();
+                break;
+        }
+
         this.routes = routes;
         FabaRuntimeWeb.rootComponent = rootComp;
 
@@ -105,7 +118,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     handleRoutes(pathname?: string) {
         if (!this.routes) return;
 
-        if (!pathname) pathname = window.location.hash.replace("#", "");
+        //if (!pathname) pathname = window.location.hash.replace("#", "");
 
         // Split path
         let path: Array<string> = pathname.split("/");
@@ -126,8 +139,10 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         if (matches.length > 0) {
+            if (process.env.FABALOUS_DEBUG > 2) console.log("Load Route Index");
             new LoadModuleEvent(matches[0].module, this.normalizeUrlPath(path)).dispatch();
         } else {
+            if (process.env.FABALOUS_DEBUG > 2) console.log(`Load Route $path`);
             new LoadModuleEvent(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path)).dispatch();
         }
     }
@@ -148,4 +163,10 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
         return normPath;
     }
+}
+
+export enum HistoryMode{
+    HASH,
+    BROWSER,
+    MEMORY
 }
