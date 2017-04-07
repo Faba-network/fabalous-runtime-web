@@ -1,3 +1,15 @@
+var path = require('path');
+
+function getIndexFile(){
+    var ph = path.join(__workDir, './src/common/web/index.ejs');
+    var fs = require('fs');
+    if (fs.existsSync(ph)) {
+        return path;
+    } else {
+        return './node_modules/@fabalous/runtime-web/config/webpack/index.ejs';
+    }
+}
+
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
@@ -131,18 +143,19 @@ module.exports = function (gulp){
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV':  JSON.stringify("development"),
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-                'process.env.FABALOUS_DEBUG': JSON.stringify("1")
+                'process.env.FABALOUS_DEBUG': JSON.stringify(1)
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'app',
+                children: true,
                 minChunks: function(module, count) {
                     return !isExternal(module) && count >= 2; // adjustable cond
                 }
             }),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendors',
-                chunks:["app"],
+                children: true,
                 minChunks: function(module) {
                     return isExternal(module);
                 }
@@ -161,7 +174,7 @@ module.exports = function (gulp){
 
             new HtmlWebpackPlugin({
                 hash:true,
-                template: path.join(__workDir, './src/common/web/index.ejs')
+                template: getIndexFile()
             }),
 
             new CompressionPlugin(),
