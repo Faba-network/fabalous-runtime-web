@@ -32,9 +32,9 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     routes: FabaWebRoutes;
 
     /**
-     *  /**
-     * Contructor expets an store and register the FabaRuntimeWebMediator
-     * @param store FabaStore or FabaImmutableStore which is avaible for the commands
+     *
+     * Constructor expects an store and register the FabaRuntimeWebMediator
+     * @param store FabaStore or FabaImmutableStore which is available for the commands
      * @param routes
      * @param rootComp
      * @param module
