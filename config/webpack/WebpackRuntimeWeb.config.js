@@ -87,7 +87,7 @@ module.exports = {
                 loader: 'awesome-typescript-loader'
             },
             {
-                test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+                test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
                 loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
                 include: [
                     path.join(__workDir, './src/')
