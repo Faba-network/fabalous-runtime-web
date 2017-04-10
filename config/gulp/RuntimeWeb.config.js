@@ -4,7 +4,7 @@ function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
     var fs = require('fs');
     if (fs.existsSync(ph)) {
-        return path;
+        return ph;
     } else {
         return './node_modules/@fabalous/runtime-web/config/webpack/index.ejs';
     }
