@@ -10,6 +10,7 @@ function getIndexFile(){
     }
 }
 
+const BabiliPlugin = require("babili-webpack-plugin");
 
 module.exports = function (gulp){
     var webpack = require('webpack');
@@ -99,16 +100,7 @@ module.exports = function (gulp){
                 }
             }),
 
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                output: {
-                    comments: false
-                },
-                sourceMap: false,
-                minimize: true
-            }),
+            new BabiliPlugin({},{comments:false}),
 
             new HtmlWebpackPlugin({
                 hash:true,

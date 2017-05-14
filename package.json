@@ -43,7 +43,10 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2",
-    "shx": "^0.2.2"
+    "shx": "^0.2.2",
+    "babel-preset-babili": "0.0.12",
+    "babili": "0.0.12",
+    "babili-webpack-plugin": "0.0.11"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
