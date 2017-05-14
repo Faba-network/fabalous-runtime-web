@@ -82,7 +82,8 @@ module.exports = function (gulp){
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV':  JSON.stringify("production"),
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-                'process.env.FABALOUS_DEBUG': JSON.stringify(1)
+                'process.env.FABALOUS_DEBUG': JSON.stringify(1),
+                'process.env.API_URL': JSON.stringify(process.env.API_URL)
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
