@@ -25,6 +25,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeArgs: Array<string>;
     static activeEvent: any;
 
+    static history: any;
+
     private history;
     static rootComponent: any;
 
@@ -54,7 +56,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
                 break;
         }
 
-        this.routes = routes;
+        FabaRuntimeWeb.history = this.routes = routes;
         FabaRuntimeWeb.rootComponent = rootComp;
 
         FabaCore.addMediator(FabaRuntimeWebMediator);
