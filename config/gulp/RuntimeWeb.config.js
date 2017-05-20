@@ -110,7 +110,7 @@ module.exports = function (gulp){
             new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
             new webpack.ExtendedAPIPlugin(),
-            new UglifyJSPlugin({comments:false})
+            new BabiliPlugin({comments:false})
         ];
 
         webpack(myConfig).run(onBuild(done));
