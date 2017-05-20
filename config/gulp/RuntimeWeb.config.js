@@ -1,4 +1,5 @@
 var path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -101,8 +102,6 @@ module.exports = function (gulp){
                 }
             }),
 
-            new BabiliPlugin({},{comments:false}),
-
             new HtmlWebpackPlugin({
                 hash:true,
                 template: getIndexFile()
@@ -110,8 +109,8 @@ module.exports = function (gulp){
 
             new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
-            new webpack.ExtendedAPIPlugin()
-
+            new webpack.ExtendedAPIPlugin(),
+            new UglifyJSPlugin({comments:false})
         ];
 
         webpack(myConfig).run(onBuild(done));
