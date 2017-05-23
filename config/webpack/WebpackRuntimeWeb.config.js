@@ -4,6 +4,14 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
 
+function getMaxFileSize(){
+    try {
+        return __maxAssetSize;
+    } catch (e){
+        return 100000
+    }
+}
+
 function getDevTool(){
     try {
         return __devTool;
@@ -88,7 +96,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
+                loader: `url-loader?limit=${getMaxFileSize}&name=assets/[name]-[hash].[ext]`,
                 include: [
                     path.join(__workDir, './src/')
                 ]
