@@ -84,7 +84,7 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'awesome-typescript-loader'
+                loader: 'awesome-typescript-loader?configFileName='+path.join(__workDir, './node_modules/@fabalous/runtime-web/config/tsconfig.web.json')
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
