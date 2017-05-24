@@ -11,8 +11,6 @@ function getIndexFile(){
     }
 }
 
-const BabiliPlugin = require("babili-webpack-plugin");
-
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
