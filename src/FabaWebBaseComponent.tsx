@@ -3,7 +3,7 @@ import * as React from "react";
 /**
  * Faba BaseComponent that use shallowCompare for quick rendering if it needs to
  */
-export default class FabaWebBaseComponent<TProps, TState> extends React.PureComponent<TProps, TState | void>{
+export default class FabaWebBaseComponent<TProps, TState = {}> extends React.PureComponent<TProps, TState | void>{
 
     /**
      * Constructor
