@@ -96,7 +96,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]-[hash].[ext]`,
+                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name].[ext]`,
                 include: [
                     path.join(__workDir, './src/')
                 ]
