@@ -11,6 +11,7 @@ function getIndexFile(){
     }
 }
 
+const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
@@ -108,16 +109,7 @@ module.exports = function (gulp){
             new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
             new webpack.ExtendedAPIPlugin(),
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                output: {
-                    comments: false
-                },
-                sourceMap: false,
-                minimize: true
-            })
+            new BabiliPlugin({comments:/@12sf/ })
         ];
 
         webpack(myConfig).run(onBuild(done));
