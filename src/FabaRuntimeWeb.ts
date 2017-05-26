@@ -117,7 +117,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
     /**
      * Handle the routes it hey change
-     * @param pathname Parthname as identifyer
+     * @param pathname Pathname as identifyer
      */
     handleRoutes(pathname?: string) {
         if (!this.routes) return;

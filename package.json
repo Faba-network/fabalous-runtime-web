@@ -30,6 +30,7 @@
     "react": "^15.5.4",
     "react-addons-create-fragment": "^15.5.4",
     "react-addons-perf": "^15.4.2",
+    "react-addons-shallow-compare": "^15.5.2",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
     "shx": "^0.2.2",
