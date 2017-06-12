@@ -1,4 +1,5 @@
 var path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -10,6 +11,7 @@ function getIndexFile(){
     }
 }
 
+const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
@@ -80,7 +82,8 @@ module.exports = function (gulp){
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV':  JSON.stringify("production"),
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-                'process.env.FABALOUS_DEBUG': JSON.stringify(1)
+                'process.env.FABALOUS_DEBUG': JSON.stringify(1),
+                'process.env.API_URL': JSON.stringify(process.env.API_URL)
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -98,17 +101,6 @@ module.exports = function (gulp){
                 }
             }),
 
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                output: {
-                    comments: false
-                },
-                sourceMap: false,
-                minimize: true
-            }),
-
             new HtmlWebpackPlugin({
                 hash:true,
                 template: getIndexFile()
@@ -116,8 +108,17 @@ module.exports = function (gulp){
 
             new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
-            new webpack.ExtendedAPIPlugin()
-
+            new webpack.ExtendedAPIPlugin(),
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                },
+                output: {
+                    comments: false
+                },
+                sourceMap: true,
+                minimize: true
+            })
         ];
 
         webpack(myConfig).run(onBuild(done));

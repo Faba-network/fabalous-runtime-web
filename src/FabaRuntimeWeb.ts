@@ -25,6 +25,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeArgs: Array<string>;
     static activeEvent: any;
 
+    static history;
+
     private history;
     static rootComponent: any;
 
@@ -53,6 +55,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
                 this.history = createMemoryHistory();
                 break;
         }
+
+        FabaRuntimeWeb.history = this.history;
 
         this.routes = routes;
         FabaRuntimeWeb.rootComponent = rootComp;
@@ -113,7 +117,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
     /**
      * Handle the routes it hey change
-     * @param pathname Parthname as identifyer
+     * @param pathname Pathname as identifyer
      */
     handleRoutes(pathname?: string) {
         if (!this.routes) return;

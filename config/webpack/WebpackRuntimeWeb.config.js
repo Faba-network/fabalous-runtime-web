@@ -4,6 +4,14 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
 
+function getMaxFileSize(){
+    try {
+        return __maxAssetSize;
+    } catch (e){
+        return 100000
+    }
+}
+
 function getDevTool(){
     try {
         return __devTool;
@@ -84,11 +92,11 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'awesome-typescript-loader'
+                loader: 'awesome-typescript-loader?configFileName='+path.join(__workDir, './node_modules/@fabalous/runtime-web/config/tsconfig.web.json')
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: 'url-loader?limit=10000&name=assets/[name]-[hash].[ext]',
+                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name].[ext]`,
                 include: [
                     path.join(__workDir, './src/')
                 ]
@@ -100,7 +108,8 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-            'process.env.FABALOUS_DEBUG': JSON.stringify(1)
+            'process.env.FABALOUS_DEBUG': JSON.stringify(1),
+            'process.env.API_URL': JSON.stringify(process.env.API_URL)
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
