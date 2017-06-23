@@ -83,7 +83,8 @@ module.exports = function (gulp){
                 'process.env.NODE_ENV':  JSON.stringify("production"),
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
                 'process.env.FABALOUS_DEBUG': JSON.stringify(1),
-                'process.env.API_URL': JSON.stringify(process.env.API_URL)
+                'process.env.API_URL': JSON.stringify(process.env.API_URL),
+                'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -144,7 +145,8 @@ module.exports = function (gulp){
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV':  JSON.stringify("development"),
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
-                'process.env.FABALOUS_DEBUG': JSON.stringify(1)
+                'process.env.FABALOUS_DEBUG': JSON.stringify(1),
+                'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
 
             new webpack.optimize.CommonsChunkPlugin({

@@ -109,7 +109,8 @@ module.exports = {
             'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
             'process.env.FABALOUS_DEBUG': JSON.stringify(1),
-            'process.env.API_URL': JSON.stringify(process.env.API_URL)
+            'process.env.API_URL': JSON.stringify(process.env.API_URL),
+            'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
