@@ -11,6 +11,15 @@ function getIndexFile(){
     }
 }
 
+function getGitHash(){
+    try {
+        return __gitHash;
+    } catch (e){
+        return "";
+    }
+}
+
+
 const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = function (gulp){
     var webpack = require('webpack');
@@ -67,7 +76,8 @@ module.exports = function (gulp){
 
         myConfig.output = {
             path: path.join(__workDir, './dist/web/'),
-            chunkFilename: 'bundle-[chunkhash].js'
+            chunkFilename: 'bundle-[chunkhash].js',
+            filename: `[name]_${getGitHash()}.js`
         };
 
         myConfig.entry = {
@@ -88,7 +98,7 @@ module.exports = function (gulp){
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'app',
+                name: `app_${getGitHash()}`,
                 children: true,
                 minChunks: function(module, count) {
                     return !isExternal(module) && count >= 2; // adjustable cond
@@ -130,7 +140,8 @@ module.exports = function (gulp){
 
         myConfig.output = {
             path: path.join(__workDir, './dist/web/'),
-            chunkFilename: 'bundle-[chunkhash].js'
+            chunkFilename: 'bundle-[chunkhash].js',
+            filename: `[name]_${getGitHash()}.js`
         };
 
         myConfig.entry = {
@@ -150,7 +161,7 @@ module.exports = function (gulp){
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'app',
+                name: `app_${getGitHash()}`,
                 children: true,
                 minChunks: function(module, count) {
                     return !isExternal(module) && count >= 2; // adjustable cond

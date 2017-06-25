@@ -4,6 +4,14 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
 
+function getGitHash(){
+    try {
+        return __gitHash;
+    } catch (e){
+        return "";
+    }
+}
+
 function getMaxFileSize(){
     try {
         return __maxAssetSize;
@@ -66,7 +74,8 @@ function getDebugMode(){
 module.exports = {
     output: {
         path: path.join(__workDir, './dist/web/debug'),
-        chunkFilename: 'bundle-[chunkhash].js'
+        chunkFilename: 'bundle-[chunkhash].js',
+        filename: `[name]_${getGitHash()}.js`
     },
 
     cache: true,
@@ -96,7 +105,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name].[ext]`,
+                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
                 include: [
                     path.join(__workDir, './src/')
                 ]
@@ -114,7 +123,7 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'app',
+            name: `app_${getGitHash()}`,
             children: true,
             minChunks: function(module, count) {
                 return !isExternal(module) && count >= 2; // adjustable cond
