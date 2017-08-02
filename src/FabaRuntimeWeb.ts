@@ -11,6 +11,7 @@ import {createHashHistory, createBrowserHistory, createMemoryHistory} from "hist
 import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import FabaStore from "@fabalous/core/store/FabaStore";
+import RenderToDOMEvent from "./event/RenderToDOMEvent";
 
 /**
  * Runtime class and startpoint for web Project's
@@ -120,7 +121,12 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param pathname Pathname as identifyer
      */
     handleRoutes(pathname?: string) {
-        if (!this.routes) return;
+        if (!this.routes){
+          console.log("Routes is empty use 3rd party routes lib?");
+          console.log("Render rootcomponent");
+
+          new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container").dispatch();
+        }
 
         if (!pathname) pathname = "";
 
