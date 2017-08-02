@@ -126,6 +126,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
           console.log("Render rootcomponent");
 
           new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container").dispatch();
+          return;
         }
 
         if (!pathname) pathname = "";
