@@ -6,7 +6,7 @@ import {FabaWebCommand} from "../FabaWebCommand";
 
 export default class RenderToDOMCommand extends FabaWebCommand<any> {
     execute(event: RenderToDOMEvent) {
-        const layout = React.createElement(event.rootComponent, {childs: event.child});
+        const layout = React.createElement(event.rootComponent, {childs: event.child,  model: this.data});
         ReactDOM.render(layout, document.getElementById(event.htmlContainer));
     }
 }
