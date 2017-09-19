@@ -96,6 +96,7 @@ module.exports = function (gulp){
                 'process.env.API_URL': JSON.stringify(process.env.API_URL),
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
+            new webpack.optimize.ModuleConcatenationPlugin(),
 
             new webpack.optimize.CommonsChunkPlugin({
                 name: `app_${getGitHash()}`,

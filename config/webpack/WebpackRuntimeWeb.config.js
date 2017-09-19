@@ -122,6 +122,7 @@ module.exports = {
             'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
         }),
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: `app_${getGitHash()}`,
             children: true,
