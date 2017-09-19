@@ -44,7 +44,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      * @param rootComp
      * @param module
      */
-    constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any, history:HistoryMode = HistoryMode.BROWSER) {
+    constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any, history:HistoryMode = HistoryMode.BROWSER, initHandleRoutes:boolean = true) {
         super(store);
 
         switch (history){
@@ -75,7 +75,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
             this.handleRoutes(location.pathname);
         });
 
-        this.handleRoutes(location.pathname);
+        if (initHandleRoutes) this.handleRoutes(location.pathname);
     }
 
     /**
