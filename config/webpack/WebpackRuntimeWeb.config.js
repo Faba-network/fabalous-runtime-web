@@ -71,6 +71,16 @@ function getDebugMode(){
     }
 }
 
+function getCache(){
+    try {
+        if (__cache == false){
+            return './node_modules/@fabalous/runtime-web/config/tsconfig.nocache.web.json'
+        }
+    } catch (e){
+        return './node_modules/@fabalous/runtime-web/config/tsconfig.web.json';
+    }
+}
+
 module.exports = {
     output: {
         path: path.join(__workDir, './dist/web/debug'),
@@ -101,7 +111,7 @@ module.exports = {
                 include: [
                     path.join(__workDir, './src/')
                 ],
-                loader: 'awesome-typescript-loader?configFileName='+path.join(__workDir, './node_modules/@fabalous/runtime-web/config/tsconfig.web.json')
+                loader: 'awesome-typescript-loader?configFileName='+path.join(__workDir, getCache())
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
