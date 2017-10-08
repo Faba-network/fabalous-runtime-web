@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2016",
+    "module": "esnext",
     "sourceMap": true,
     "jsx": "react",
     "experimentalDecorators": true,
@@ -16,7 +16,7 @@
     "rootDir": "./../../../../src/",
     "importHelpers": true,
     "lib": [
-      "es2015",
+      "esnext",
       "dom"
     ],
     "forceConsistentCasingInFileNames": true,
@@ -25,7 +25,10 @@
     "paths": {
       "assets/*":["./../../../../src/common/assets/*"],
       "src/*":["./../../../../src/*"]
-    }
+    },
+    "typeRoots":[
+      "./../../../../node_modules/@types"
+    ]
   },
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
