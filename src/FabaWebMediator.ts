@@ -9,8 +9,11 @@ export class FabaWebMediator extends FabaCoreMediator{
      *
      * @param event
      * @param command
+     * @param check
      */
-    addCommand(event, command): void {
+    addCommand(event, command, check?): void {
+        if (check && !check()) return;
+
         super.addCommand(event, command);
     }
 }
