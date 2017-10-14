@@ -152,10 +152,10 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         if (matches.length > 0) {
-            if (process.env.FABALOUS_DEBUG > 2) console.log("Load Route Index");
+            if (process.env.FABALOUS_DEBUG > "2") console.log("Load Route Index");
             new LoadModuleEvent(matches[0].module, this.normalizeUrlPath(path)).dispatch();
         } else {
-            if (process.env.FABALOUS_DEBUG > 2) console.log(`Load Route $path`);
+            if (process.env.FABALOUS_DEBUG > "2") console.log(`Load Route $path`);
             new LoadModuleEvent(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path)).dispatch();
         }
     }
