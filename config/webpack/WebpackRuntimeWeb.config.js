@@ -3,6 +3,8 @@ var webpack = require('webpack');
 var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
+var HappyPack = require('happypack');
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getGitHash(){
     try {
@@ -105,17 +107,15 @@ module.exports = {
         ]
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.tsx?$/,
-                include: [
-                    path.join(__workDir, './src/')
-                ],
-                loader: 'awesome-typescript-loader?configFileName='+path.join(__workDir, getCache())
+                exclude: /node_modules/,
+                loader: 'happypack/loader?id=ts'
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
+                loader: `happypack/loader?id=url`,
                 include: [
                     path.join(__workDir, './src/')
                 ]
@@ -124,6 +124,34 @@ module.exports = {
     },
 
     plugins: [
+        new HappyPack({
+            id: 'ts',
+            threads: require('os').cpus().length - 3,
+            loaders: [
+                {
+                    path: 'ts-loader',
+                    query: {
+                        transpileOnly: true,
+                        happyPackMode: true,
+                        configFile:path.join(__workDir, getCache())
+                    }
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'url',
+            threads: 2,
+            loaders: [
+                {
+                    path: 'url-loader',
+                    query: {
+                        limit: getMaxFileSize(),
+                        name: `assets/[name]_${getGitHash()}.[ext]`
+                    }
+                }
+            ]
+        }),
+        new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
@@ -132,21 +160,6 @@ module.exports = {
             'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: `app_${getGitHash()}`,
-            children: true,
-            minChunks: function(module, count) {
-                return !isExternal(module) && count >= 2; // adjustable cond
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
-            children: true,
-            minChunks: function(module) {
-                return isExternal(module);
-            }
-        }),
         new ProgressBarPlugin(),
         new HtmlWebpackPlugin({
             hash:true,

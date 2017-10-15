@@ -25,18 +25,7 @@
     "paths": {
       "assets/*":["./../../../../src/common/assets/*"],
       "src/*":["./../../../../src/*"]
-    },
-    "typeRoots":[
-      "./../../../../node_modules/@types"
-    ]
-  },
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "forkCheckerSilent": true,
-    "useBabel": true,
-    "useCache": true,
-    "skipDeclarationFilesCheck": true,
-    "cacheDirectory":".awWebCache"
+    }
   },
   "exclude": [
     "./../../../../node_modules",

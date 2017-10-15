@@ -21,12 +21,15 @@
     "babili-webpack-plugin": "^0.1.2",
     "compression-webpack-plugin": "^1.0.1",
     "file-loader": "^1.1.5",
+    "fork-ts-checker-webpack-plugin": "^0.2.8",
+    "happypack": "^4.0.0",
     "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "offline-plugin": "^4.8.4",
     "progress-bar-webpack-plugin": "^1.10.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.0.0",
     "shx": "^0.2.2",
     "tslib": "^1.8.0",
     "typescript": "^2.5.3",
@@ -35,8 +38,7 @@
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
     "url-loader": "^0.6.2",
     "webpack": "^3.7.1",
-    "webpack-dev-server": "^2.9.1",
-    "react-hot-loader": "^3.0.0"
+    "webpack-dev-server": "^2.9.1"
   },
   "devDependencies": {
     "@types/jest": "^21.1.2",
