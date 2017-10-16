@@ -18,7 +18,7 @@ function getMaxFileSize(){
     try {
         return __maxAssetSize;
     } catch (e){
-        return 100000
+        return 1000;
     }
 }
 
@@ -89,13 +89,11 @@ module.exports = {
         chunkFilename: 'bundle-[chunkhash].js',
         filename: `[name]_${getGitHash()}.js`
     },
-
-    cache: true,
     performance: { hints: false },
     devtool: getDevTool(),
 
     resolve: {
-        extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less'],
+        extensions: ['.ts', '.tsx', '.js'],
         alias: getAlias()
     },
 
@@ -115,10 +113,8 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
-                loader: `happypack/loader?id=url`,
-                include: [
-                    path.join(__workDir, './src/')
-                ]
+                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
+                exclude: /node_modules/
             }
         ]
     },
@@ -138,19 +134,6 @@ module.exports = {
                 }
             ]
         }),
-        new HappyPack({
-            id: 'url',
-            threads: 2,
-            loaders: [
-                {
-                    path: 'url-loader',
-                    query: {
-                        limit: getMaxFileSize(),
-                        name: `assets/[name]_${getGitHash()}.[ext]`
-                    }
-                }
-            ]
-        }),
         new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
@@ -159,13 +142,12 @@ module.exports = {
             'process.env.API_URL': JSON.stringify(process.env.API_URL),
             'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
         }),
-        new webpack.HotModuleReplacementPlugin(),
-        new ProgressBarPlugin(),
         new HtmlWebpackPlugin({
             hash:true,
             template: getIndexFile()
         }),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
 
