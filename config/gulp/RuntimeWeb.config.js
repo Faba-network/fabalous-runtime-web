@@ -1,5 +1,7 @@
 var path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var HappyPack = require('happypack');
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -95,6 +97,20 @@ module.exports = function (gulp){
                 'process.env.FABALOUS_DEBUG': JSON.stringify(1),
                 'process.env.API_URL': JSON.stringify(process.env.API_URL),
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
+            }),
+            new HappyPack({
+                id: 'ts',
+                threads: require('os').cpus().length - 1,
+                loaders: [
+                    {
+                        path: 'ts-loader',
+                        query: {
+                            transpileOnly: true,
+                            happyPackMode: true,
+                            configFile:path.join(__workDir, "./node_modules/@fabalous/runtime-web/config/tsconfig.web.json")
+                        }
+                    }
+                ]
             }),
             new webpack.optimize.ModuleConcatenationPlugin(),
 
