@@ -112,6 +112,15 @@ module.exports = function (gulp){
                     }
                 ]
             }),
+            new HappyPack({
+                id: 'bable',
+                threads: require('os').cpus().length - 3,
+                loaders: [
+                    {
+                        path: 'babel-loader'
+                    }
+                ]
+            }),
             new webpack.optimize.ModuleConcatenationPlugin(),
 
             new webpack.optimize.CommonsChunkPlugin({

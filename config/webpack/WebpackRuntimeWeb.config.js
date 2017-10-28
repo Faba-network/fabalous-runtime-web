@@ -112,9 +112,18 @@ module.exports = {
                 loader: 'happypack/loader?id=ts'
             },
             {
-                test: /\.(eot|woff|woff2|ttf|svg|png|jpg|mp4|mp3)$/,
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'happypack/loader?id=bable'
+            },
+            {
+                test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
                 loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
                 exclude: /node_modules/
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             }
         ]
     },
@@ -131,6 +140,15 @@ module.exports = {
                         happyPackMode: true,
                         configFile:path.join(__workDir, getCache())
                     }
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'bable',
+            threads: require('os').cpus().length - 3,
+            loaders: [
+                {
+                    path: 'babel-loader'
                 }
             ]
         }),
