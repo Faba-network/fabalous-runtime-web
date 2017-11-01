@@ -186,6 +186,30 @@ module.exports = function (gulp){
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
 
+            new HappyPack({
+                id: 'ts',
+                threads: require('os').cpus().length - 1,
+                loaders: [
+                    {
+                        path: 'ts-loader',
+                        query: {
+                            transpileOnly: true,
+                            happyPackMode: true,
+                            configFile:path.join(__workDir, "./node_modules/@fabalous/runtime-web/config/tsconfig.web.json")
+                        }
+                    }
+                ]
+            }),
+            new HappyPack({
+                id: 'bable',
+                threads: require('os').cpus().length - 3,
+                loaders: [
+                    {
+                        path: 'babel-loader'
+                    }
+                ]
+            }),
+
             new webpack.optimize.CommonsChunkPlugin({
                 name: `app_${getGitHash()}`,
                 children: true,
