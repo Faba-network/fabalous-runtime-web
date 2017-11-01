@@ -26,6 +26,8 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeArgs: Array<string>;
     static activeEvent: any;
 
+    static hydrate:boolean = false;
+
     static containers: Array<any>;
 
     static history;
