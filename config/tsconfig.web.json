@@ -21,12 +21,11 @@
     ],
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": true,
-    "baseUrl": "./",
-    "paths": {
-      "assets/*":["./../../../../src/common/assets/*"],
-      "src/*":["./../../../../src/*"]
-    }
+    "baseUrl": "./"
   },
+  "include": [
+    "./../../../../src/"
+  ],
   "exclude": [
     "./../../../../node_modules",
     "./../../../../test"
