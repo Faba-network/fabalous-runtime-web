@@ -16,7 +16,6 @@
     "@fabalous/core": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "awesome-typescript-loader": "3.3.0",
     "babel-preset-react-optimize": "^1.0.1",
     "babili-webpack-plugin": "^0.1.2",
     "compression-webpack-plugin": "^1.0.1",
@@ -31,14 +30,15 @@
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.1.1",
     "shx": "^0.2.2",
+    "ts-loader": "^3.1.1",
     "tslib": "^1.8.0",
     "typescript": "^2.6.1",
-    "typestyle": "^1.5.0",
-    "uglify-js": "^3.1.6",
+    "typestyle": "^1.5.1",
+    "uglify-js": "^3.1.8",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3"
+    "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",
