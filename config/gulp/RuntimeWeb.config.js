@@ -109,15 +109,6 @@ module.exports = function (gulp){
                     }
                 ]
             }),
-            new HappyPack({
-                id: 'bable',
-                threads: require('os').cpus().length - 3,
-                loaders: [
-                    {
-                        path: 'babel-loader'
-                    }
-                ]
-            }),
             new webpack.optimize.ModuleConcatenationPlugin(),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -146,12 +137,14 @@ module.exports = function (gulp){
             new webpack.ExtendedAPIPlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
-                    warnings: false
+                    warnings: false,
+                    drop_console: true
                 },
                 output: {
+                    
                     comments: false
                 },
-                sourceMap: true,
+                sourceMap: false,
                 minimize: true
             })
         ];
@@ -198,16 +191,6 @@ module.exports = function (gulp){
                     }
                 ]
             }),
-            new HappyPack({
-                id: 'bable',
-                threads: require('os').cpus().length - 3,
-                loaders: [
-                    {
-                        path: 'babel-loader'
-                    }
-                ]
-            }),
-
             new webpack.optimize.CommonsChunkPlugin({
                 name: `app_${getGitHash()}`,
                 children: true,
@@ -225,12 +208,13 @@ module.exports = function (gulp){
 
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
-                    warnings: false
+                    warnings: false,
+                    drop_console: true
                 },
                 output: {
                     comments: false
                 },
-                sourceMap: true,
+                sourceMap: false,
                 minimize: true
             }),
 

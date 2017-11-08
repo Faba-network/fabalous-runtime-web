@@ -16,9 +16,6 @@
     "@fabalous/core": "^0.5.21",
     "@types/react": "^16.0.20",
     "@types/react-dom": "^16.0.2",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react-optimize": "^1.0.1",
-    "babili-webpack-plugin": "^0.1.2",
     "compression-webpack-plugin": "^1.0.1",
     "file-loader": "^1.1.5",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
@@ -43,7 +40,6 @@
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-replace": "^0.6.1",
     "gulp-typedoc": "^2.1.1",

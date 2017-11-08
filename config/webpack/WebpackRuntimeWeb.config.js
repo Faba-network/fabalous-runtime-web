@@ -142,15 +142,6 @@ module.exports = {
                 }
             ]
         }),
-        new HappyPack({
-            id: 'bable',
-            threads: require('os').cpus().length - 3,
-            loaders: [
-                {
-                    path: 'babel-loader'
-                }
-            ]
-        }),
         new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
