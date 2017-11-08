@@ -1,7 +1,5 @@
 var path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var HappyPack = require('happypack');
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -22,7 +20,6 @@ function getGitHash(){
 }
 
 
-const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
@@ -130,6 +127,7 @@ module.exports = function (gulp){
                     return !isExternal(module) && count >= 2; // adjustable cond
                 }
             }),
+
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendors',
                 children: true,
