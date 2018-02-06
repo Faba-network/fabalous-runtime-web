@@ -1,6 +1,6 @@
 {
   "name": "@fabalous/runtime-web",
-  "version": "0.2.87",
+  "version": "0.2.89",
   "scripts": {
     "postversion": "npm run build && git push && git push --tags && npm publish",
     "build": "gulp clean && tsc && gulp copy_src_to_lib && gulp remove_src_folder && gulp remove_node_modules_folder",
@@ -13,12 +13,9 @@
   "author": "Jörg Wasmeier",
   "license": "ISC",
   "dependencies": {
-    "@fabalous/core": "^0.5.19",
+    "@fabalous/core": "^0.5.21",
     "@types/react": "^16.0.20",
     "@types/react-dom": "^16.0.2",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react-optimize": "^1.0.1",
-    "babili-webpack-plugin": "^0.1.2",
     "compression-webpack-plugin": "^1.0.1",
     "file-loader": "^1.1.5",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
@@ -36,7 +33,6 @@
     "typescript": "^2.6.1",
     "typestyle": "^1.5.1",
     "uglify-js": "^3.1.8",
-    "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
@@ -44,7 +40,6 @@
   "devDependencies": {
     "@types/jest": "^21.1.5",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-replace": "^0.6.1",
     "gulp-typedoc": "^2.1.1",

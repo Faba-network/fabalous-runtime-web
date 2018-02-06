@@ -1,7 +1,5 @@
 var path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var HappyPack = require('happypack');
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -22,7 +20,6 @@ function getGitHash(){
 }
 
 
-const BabiliPlugin = require("babili-webpack-plugin");
 module.exports = function (gulp){
     var webpack = require('webpack');
     var WebpackDevServer = require("webpack-dev-server");
@@ -112,15 +109,6 @@ module.exports = function (gulp){
                     }
                 ]
             }),
-            new HappyPack({
-                id: 'bable',
-                threads: require('os').cpus().length - 3,
-                loaders: [
-                    {
-                        path: 'babel-loader'
-                    }
-                ]
-            }),
             new webpack.optimize.ModuleConcatenationPlugin(),
 
             new webpack.optimize.CommonsChunkPlugin({
@@ -130,6 +118,7 @@ module.exports = function (gulp){
                     return !isExternal(module) && count >= 2; // adjustable cond
                 }
             }),
+
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendors',
                 children: true,
@@ -148,12 +137,14 @@ module.exports = function (gulp){
             new webpack.ExtendedAPIPlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
-                    warnings: false
+                    warnings: false,
+                    drop_console: true
                 },
                 output: {
+                    
                     comments: false
                 },
-                sourceMap: true,
+                sourceMap: false,
                 minimize: true
             })
         ];
@@ -200,16 +191,6 @@ module.exports = function (gulp){
                     }
                 ]
             }),
-            new HappyPack({
-                id: 'bable',
-                threads: require('os').cpus().length - 3,
-                loaders: [
-                    {
-                        path: 'babel-loader'
-                    }
-                ]
-            }),
-
             new webpack.optimize.CommonsChunkPlugin({
                 name: `app_${getGitHash()}`,
                 children: true,
@@ -227,12 +208,13 @@ module.exports = function (gulp){
 
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
-                    warnings: false
+                    warnings: false,
+                    drop_console: true
                 },
                 output: {
                     comments: false
                 },
-                sourceMap: true,
+                sourceMap: false,
                 minimize: true
             }),
 

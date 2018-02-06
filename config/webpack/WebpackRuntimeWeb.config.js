@@ -99,6 +99,7 @@ module.exports = {
 
     entry: {
         app: [
+            "react-hot-loader/patch",            
             path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
             'webpack-dev-server/client?http://'+getHost()+':'+getPort()+'/', // WebpackDevServer host and port
             'webpack/hot/only-dev-server' // "only" prevents reload on syntax errors
@@ -110,11 +111,6 @@ module.exports = {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 loader: 'happypack/loader?id=ts'
-            },
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'happypack/loader?id=bable'
             },
             {
                 test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
@@ -134,21 +130,15 @@ module.exports = {
             threads: require('os').cpus().length - 3,
             loaders: [
                 {
+                    path:"react-hot-loader/webpack"
+                },
+                {
                     path: 'ts-loader',
                     query: {
                         transpileOnly: true,
                         happyPackMode: true,
                         configFile:path.join(__workDir, getCache())
                     }
-                }
-            ]
-        }),
-        new HappyPack({
-            id: 'bable',
-            threads: require('os').cpus().length - 3,
-            loaders: [
-                {
-                    path: 'babel-loader'
                 }
             ]
         }),
