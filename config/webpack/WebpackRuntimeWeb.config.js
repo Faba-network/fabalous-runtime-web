@@ -73,6 +73,28 @@ function getDebugMode(){
     }
 }
 
+function getRules(){
+    const rules = [
+        {
+            test: /\.tsx?$/,
+            exclude: /node_modules/,
+            loader: 'happypack/loader?id=ts'
+        },
+        {
+            test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
+            loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
+            exclude: /node_modules/
+        },
+        {
+            test: /\.svg$/,
+            loader: 'svg-inline-loader'
+        }
+    ]
+
+    if (__rules) return rules.concat(__rules);
+    return rules;
+}
+
 function getCache(){
     try {
         if (__cache == false){
@@ -106,22 +128,7 @@ module.exports = {
         ]
     },
     module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                loader: 'happypack/loader?id=ts'
-            },
-            {
-                test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
-                loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
-                exclude: /node_modules/
-            },
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            }
-        ]
+        rules: getRules()
     },
 
     plugins: [
