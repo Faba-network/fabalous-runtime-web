@@ -89,10 +89,13 @@ function getRules(){
             test: /\.svg$/,
             loader: 'svg-inline-loader'
         }
-    ]
+    ];
 
-    if (__rules) return rules.concat(__rules);
-    return rules;
+    try{
+        if (__rules) return rules.concat(__rules);
+    } catch (e){
+        return rules;
+    }
 }
 
 function getCache(){
