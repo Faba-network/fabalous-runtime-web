@@ -97,7 +97,7 @@ module.exports = function (gulp){
             }),
             new HappyPack({
                 id: 'ts',
-                threads: require('os').cpus().length - 1,
+                threads: 1,
                 loaders: [
                     {
                         path: 'ts-loader',
