@@ -78,7 +78,18 @@ function getRules(){
         {
             test: /\.tsx?$/,
             exclude: /node_modules/,
-            loader: 'happypack/loader?id=ts'
+            use: [
+                {
+                    loader:"react-hot-loader/webpack"
+                },
+                {
+                    loader: 'ts-loader',
+                    query: {
+                        transpileOnly: true,
+                        configFile:path.join(__workDir, getCache())
+                    }
+                }
+            ]
         },
         {
             test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
@@ -135,23 +146,6 @@ module.exports = {
     },
 
     plugins: [
-        new HappyPack({
-            id: 'ts',
-            threads: require('os').cpus().length - 3,
-            loaders: [
-                {
-                    path:"react-hot-loader/webpack"
-                },
-                {
-                    path: 'ts-loader',
-                    query: {
-                        transpileOnly: true,
-                        happyPackMode: true,
-                        configFile:path.join(__workDir, getCache())
-                    }
-                }
-            ]
-        }),
         new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
@@ -164,7 +158,6 @@ module.exports = {
             hash:true,
             template: getIndexFile()
         }),
-        new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ]
 };
