@@ -1,10 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
-var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 new webpack.ExtendedAPIPlugin();
-var HappyPack = require('happypack');
-var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getGitHash(){
     try {
@@ -65,14 +62,6 @@ function getIndexFile(){
     }
 }
 
-function getDebugMode(){
-    try {
-        return __debugMode;
-    } catch (e){
-        return 0;
-    }
-}
-
 function getRules(){
     const rules = [
         {
@@ -127,7 +116,7 @@ module.exports = {
     },
     performance: { hints: false },
     devtool: getDevTool(),
-
+    mode:"development",
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
         alias: getAlias()
@@ -146,7 +135,6 @@ module.exports = {
     },
 
     plugins: [
-        new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':  JSON.stringify("development"),
             'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
@@ -161,15 +149,3 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ]
 };
-
-function isExternal(module) {
-    var userRequest = module.userRequest;
-
-    if (typeof userRequest !== 'string') {
-        return false;
-    }
-
-    return userRequest.indexOf('bower_components') >= 0 ||
-        userRequest.indexOf('node_modules') >= 0 ||
-        userRequest.indexOf('libraries') >= 0;
-}
