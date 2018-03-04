@@ -84,7 +84,7 @@ module.exports = function (gulp){
                 path.join(__workDir, './src/A_Web.ts')
             ]
         };
-
+        myConfig.mode = "production";
         myConfig.devtool = false;
 
         myConfig.plugins = [
@@ -95,58 +95,16 @@ module.exports = function (gulp){
                 'process.env.API_URL': JSON.stringify(process.env.API_URL),
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
-            new HappyPack({
-                id: 'ts',
-                threads: 1,
-                loaders: [
-                    {
-                        path: 'ts-loader',
-                        query: {
-                            transpileOnly: true,
-                            happyPackMode: true,
-                            configFile:path.join(__workDir, "./node_modules/@fabalous/runtime-web/config/tsconfig.web.json")
-                        }
-                    }
-                ]
-            }),
             new webpack.optimize.ModuleConcatenationPlugin(),
 
-            new webpack.optimize.CommonsChunkPlugin({
-                name: `app_${getGitHash()}`,
-                children: true,
-                minChunks: function(module, count) {
-                    return !isExternal(module) && count >= 2; // adjustable cond
-                }
-            }),
-
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendors',
-                children: true,
-                minChunks: function(module) {
-                    return isExternal(module);
-                }
-            }),
 
             new HtmlWebpackPlugin({
                 hash:true,
                 template: getIndexFile()
             }),
 
-            new webpack.NoEmitOnErrorsPlugin(),
             new CompressionPlugin(),
-            new webpack.ExtendedAPIPlugin(),
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                    drop_console: true
-                },
-                output: {
-                    
-                    comments: false
-                },
-                sourceMap: false,
-                minimize: true
-            })
+            new webpack.ExtendedAPIPlugin()
         ];
 
         webpack(myConfig).run(onBuild(done));
@@ -175,47 +133,6 @@ module.exports = function (gulp){
                 'process.env.FABALOUS_RUNTIME': JSON.stringify("web"),
                 'process.env.FABALOUS_DEBUG': JSON.stringify(1),
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
-            }),
-
-            new HappyPack({
-                id: 'ts',
-                threads: require('os').cpus().length - 1,
-                loaders: [
-                    {
-                        path: 'ts-loader',
-                        query: {
-                            transpileOnly: true,
-                            happyPackMode: true,
-                            configFile:path.join(__workDir, "./node_modules/@fabalous/runtime-web/config/tsconfig.web.json")
-                        }
-                    }
-                ]
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: `app_${getGitHash()}`,
-                children: true,
-                minChunks: function(module, count) {
-                    return !isExternal(module) && count >= 2; // adjustable cond
-                }
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendors',
-                children: true,
-                minChunks: function(module) {
-                    return isExternal(module);
-                }
-            }),
-
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                    drop_console: true
-                },
-                output: {
-                    comments: false
-                },
-                sourceMap: false,
-                minimize: true
             }),
 
             new HtmlWebpackPlugin({

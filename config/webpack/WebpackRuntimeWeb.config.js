@@ -62,6 +62,14 @@ function getIndexFile(){
     }
 }
 
+function getDebugMode(){
+    try {
+        return __debugMode;
+    } catch (e){
+        return 0;
+    }
+}
+
 function getRules(){
     const rules = [
         {
