@@ -100,7 +100,8 @@ module.exports = function (gulp){
 
             new HtmlWebpackPlugin({
                 hash:true,
-                template: getIndexFile()
+                template: getIndexFile(),
+                chunksSortMode:"none"
             }),
 
             new CompressionPlugin(),
@@ -137,7 +138,8 @@ module.exports = function (gulp){
 
             new HtmlWebpackPlugin({
                 hash:true,
-                template: getIndexFile()
+                template: getIndexFile(),
+                chunksSortMode:"none"
             }),
 
             new CompressionPlugin(),
