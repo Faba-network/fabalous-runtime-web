@@ -152,7 +152,8 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             hash:true,
-            template: getIndexFile()
+            template: getIndexFile(),
+            chunksSortMode:"none"
         }),
         new webpack.HotModuleReplacementPlugin()
     ]
