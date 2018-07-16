@@ -7,32 +7,19 @@ import FabaImmutableStore from "@fabalous/core/store/FabaImmutableStore";
  */
 
 export class FabaWebCommand<TStore> extends FabaCoreCommand<TStore>{
-    private imstore:FabaImmutableStore<TStore>;
-
     /**
      *
      * @param store
      */
     constructor(store:FabaImmutableStore<TStore>){
         super(store);
-        this.imstore = store;
     }
-
-    /**
-     *
-     * @param path
-     * @param data
-     */
-    setStore(path:string, data:any){
-        this.imstore.set(path, data);
-    }
-
     /**
      *
      * @returns {TStore}
      */
     get data():TStore{
-        return this.imstore.data;
+        return this.store.data;
     }
 
     /**
