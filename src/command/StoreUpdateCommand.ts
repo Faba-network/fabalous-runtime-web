@@ -6,7 +6,10 @@ import {FabaWebCommand} from "../FabaWebCommand";
 export default class StoreUpdateCommand extends FabaWebCommand<any> {
     async execute(event: FabaStoreUpdateEvent) {
         if (FabaRuntimeWeb.activeEvent){
-            let k = await FabaRuntimeWeb.activeEvent.dispatch();
+            const event = FabaRuntimeWeb.activeEvent;
+            event.init = false;
+            event.update = true;
+            let k = await event.dispatch();
             new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", k.view).dispatch();
         }
     }

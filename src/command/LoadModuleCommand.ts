@@ -23,6 +23,8 @@ export default class LoadModuleCommand extends FabaWebCommand<any> {
 
         let t: any = new comp.initEvent;
         t.args = event.args;
+        t.init = true;
+        t.update = false;
 
         FabaRuntimeWeb.activeEvent = t;
         let k = await t.dispatch();
