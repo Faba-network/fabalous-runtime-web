@@ -87,7 +87,6 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     enableHotReload(module) {
         if (module && module.hot) {
             module.hot.accept();
-
             module.hot.dispose(() => {
                 FabaCore.reset();
             });
@@ -138,8 +137,6 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
 
         if (process.env.FABALOUS_DEBUG > "2") console.log(`Load Route $path`);
         new LoadModuleEvent(foundRoute).dispatch();
-
-
     }
 }
 

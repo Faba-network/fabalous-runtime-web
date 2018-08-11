@@ -12,12 +12,13 @@ export default class LoadModuleCommand extends FabaWebCommand<any> {
         let comp = await event.route.module();
         comp = comp.default;
 
-        if (!comp){
+        if (!comp) {
             console.error("Module not Found", event.route);
             return;
         }
 
-        FabaCore.addMediator(comp.mediator);
+        //@ts-ignore
+        FabaCore.addMediator(comp.mediator, event.route.route);
 
         let t: any = new comp.initEvent;
         t.route = event.route;
