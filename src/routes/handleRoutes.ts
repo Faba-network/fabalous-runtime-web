@@ -2,14 +2,12 @@ import {IRoutes} from "./IRoutes";
 import {FabaWebRoutes} from "./FabaWebRoutes";
 
 export function parseRoute(route: IRoutes, args): string {
-    const r = /(::)\w+/g;
     const splited = route.route.split("/");
     let path = "/";
 
     if (args) {
         splited.forEach(item => {
-            const isVar: boolean = r.test(item);
-            if (isVar) {
+            if (item.indexOf("::") !== -1) {
                 const u = item.replace("::", "");
                 if (args[u]) path += args[u] + "/";
             } else if (item !== "") {
