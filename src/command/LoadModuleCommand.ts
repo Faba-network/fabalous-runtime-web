@@ -6,23 +6,22 @@ import {FabaWebCommand} from "../FabaWebCommand";
 
 export default class LoadModuleCommand extends FabaWebCommand<any> {
     async execute(event: LoadModuleEvent) {
-        if (!event.loadfun) return;
+        if (!event.route.module) return;
+        FabaRuntimeWeb.activeRoute = event.route;
 
-        FabaRuntimeWeb.activeModule = event.loadfun;
-        FabaRuntimeWeb.activeArgs = event.args;
-
-        let comp = await event.loadfun();
+        let comp = await event.route.module();
         comp = comp.default;
 
         if (!comp){
-            console.error("Module not Found", event.args, event.loadfun);
+            console.error("Module not Found", event.route);
             return;
         }
 
         FabaCore.addMediator(comp.mediator);
 
         let t: any = new comp.initEvent;
-        t.args = event.args;
+        t.route = event.route;
+        t.args = event.route.args;
         t.init = true;
         t.update = false;
 

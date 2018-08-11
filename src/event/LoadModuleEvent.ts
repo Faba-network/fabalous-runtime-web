@@ -1,13 +1,12 @@
 import FabaEvent from "@fabalous/core/FabaEvent";
+import {IRoutes} from "../routes/IRoutes";
 
 export default class LoadModuleEvent extends FabaEvent {
-    loadfun:any;
-    args:any;
+    route: IRoutes;
 
-    constructor(loadfun: any, args?: Array<string>) {
+    constructor(route: IRoutes) {
         super("LoadModuleEvent");
 
-        this.loadfun = loadfun;
-        this.args = args;
+        this.route = route;
     }
 }

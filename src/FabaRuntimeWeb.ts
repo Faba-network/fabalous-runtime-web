@@ -7,11 +7,12 @@ import FabaCore from "@fabalous/core/FabaCore";
 import {IRoutes} from "./routes/IRoutes";
 import {FabaWebRoutes} from "./routes/FabaWebRoutes";
 import LoadModuleEvent from "./event/LoadModuleEvent";
-import {createHashHistory, createBrowserHistory, createMemoryHistory} from "history";
+import {createBrowserHistory, createHashHistory, createMemoryHistory} from "history";
 import FabaCoreTransportBase from "@fabalous/core/transport/FabaCoreTransportBase";
 import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import FabaStore from "@fabalous/core/store/FabaStore";
 import RenderToDOMEvent from "./event/RenderToDOMEvent";
+import {mapUrlToRoute} from "./routes/handleRoutes";
 
 /**
  * Runtime class and startpoint for web Project's
@@ -22,9 +23,8 @@ import RenderToDOMEvent from "./event/RenderToDOMEvent";
  */
 export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static servers: Array<any> = [];
-    static activeModule: any;
-    static activeArgs: Array<string>;
     static activeEvent: any;
+    static activeRoute: IRoutes;
 
     static hydrate:boolean = false;
 
@@ -121,7 +121,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     }
 
     /**
-     * Handle the routes it hey change
+     * Handle the routes if they change
      * @param pathname Pathname as identifyer
      */
     handleRoutes(pathname?: string) {
@@ -134,49 +134,12 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         }
 
         if (!pathname) pathname = "";
+        const foundRoute = mapUrlToRoute(pathname, this.routes);
 
-        // Split path
-        let path: Array<string> = pathname.split("/");
-        let matches: Array<IRoutes> = [];
+        if (process.env.FABALOUS_DEBUG > "2") console.log(`Load Route $path`);
+        new LoadModuleEvent(foundRoute).dispatch();
 
-        // Check if firstname fits
-        for (let i = 1; i < path.length; i++) {
-            let urlPath = path[i];
-            if (urlPath.length > 1) {
-                for (let m = 0; m < this.routes.getRoutes().length; m++) {
-                    let route = this.routes.getRoutes()[m];
 
-                    if (route.route.indexOf(urlPath) > -1) {
-                        matches.push(route);
-                    }
-                }
-            }
-        }
-
-        if (matches.length > 0) {
-            if (process.env.FABALOUS_DEBUG > "2") console.log("Load Route Index");
-            new LoadModuleEvent(matches[0].module, this.normalizeUrlPath(path)).dispatch();
-        } else {
-            if (process.env.FABALOUS_DEBUG > "2") console.log(`Load Route $path`);
-            new LoadModuleEvent(this.routes.getRoutes()[0].module, this.normalizeUrlPath(path)).dispatch();
-        }
-    }
-
-    /**
-     * TODO: Need refactor
-     *
-     * Helper function that normilaze the Routepath
-     * @param path
-     */
-    normalizeUrlPath(path: Array<string>) {
-        let normPath: Array<string> = [];
-
-        for (var i = 1; i < path.length; i++) {
-            var obj = path[i];
-            if (obj.length >= 1) normPath.push(obj);
-        }
-
-        return normPath;
     }
 }
 
