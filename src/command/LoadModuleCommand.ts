@@ -19,17 +19,7 @@ export default class LoadModuleCommand extends FabaWebCommand<any> {
 
         //@ts-ignore
         FabaCore.addMediator(comp.mediator, event.route.route);
-        /*
-        let t: any = new comp.initEvent;
-        t.route = event.route;
-        t.args = event.route.args;
-        t.init = true;
-        t.update = false;*
-        */
 
-        //FabaRuntimeWeb.activeEvent = t;
-        //let k = await t.dispatch();
-
-        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", comp.view).dispatch();
+        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", comp.view, event.route).dispatch();
     }
 }
