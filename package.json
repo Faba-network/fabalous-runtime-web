@@ -19,7 +19,6 @@
     "compression-webpack-plugin": "^1.1.11",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
-    "level-prebuilt": "^0.18.0-3",
     "html-webpack-plugin": "^3.2.0",
     "offline-plugin": "^5.0.5",
     "progress-bar-webpack-plugin": "^1.11.0",
