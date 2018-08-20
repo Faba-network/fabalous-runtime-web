@@ -13,7 +13,7 @@
   "author": "Jörg Wasmeier",
   "license": "ISC",
   "dependencies": {
-    "@fabalous/core": "^1.0.8",
+    "@fabalous/core": "^2.0.0",
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",
     "compression-webpack-plugin": "^1.1.11",
