@@ -1,5 +1,4 @@
 var path = require('path');
-var HappyPack = require('happypack');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
