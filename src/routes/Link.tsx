@@ -1,15 +1,14 @@
 import * as React from "react";
 
-import FabaWebBaseComponent from "../FabaWebBaseComponent";
 import {IRoutes} from "./IRoutes";
 
-export interface ILinkProps{
-    route:IRoutes;
+export interface Props {
+    route: IRoutes;
 }
 
-export default class Link extends FabaWebBaseComponent<ILinkProps>{
-    render(){
-        return(
+export default class Link extends React.PureComponent<Props> {
+    render() {
+        return (
             <a href={this.props.route.route}>
                 {this.props.children}
             </a>

@@ -13,6 +13,7 @@ import FabaRuntimeWebMediator from "./FabaRuntimeWebMediator";
 import FabaStore from "@fabalous/core/store/FabaStore";
 import RenderToDOMEvent from "./event/RenderToDOMEvent";
 import {mapUrlToRoute} from "./routes/handleRoutes";
+import * as React from "react";
 
 /**
  * Runtime class and startpoint for web Project's
@@ -31,12 +32,14 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static containers: Array<any>;
 
     static history;
+    static webStateContext: React.Context<FabaStore<any>>;
 
     private history;
     static rootComponent: any;
 
     listener: any;
     routes: FabaWebRoutes;
+
 
     /**
      *
@@ -48,6 +51,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
      */
     constructor(store: FabaStore<any>, routes?:any, rootComp?:any, module?:any, history:HistoryMode = HistoryMode.BROWSER, initHandleRoutes:boolean = true) {
         super(store);
+        FabaRuntimeWeb.webStateContext = React.createContext(store);
 
         switch (history){
             case HistoryMode.BROWSER:
@@ -64,7 +68,9 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
         FabaRuntimeWeb.history = this.history;
 
         this.routes = routes;
-        FabaRuntimeWeb.rootComponent = rootComp;
+        if (rootComp) {
+            FabaRuntimeWeb.rootComponent = rootComp;
+        }
 
         FabaCore.addMediator(FabaRuntimeWebMediator);
 
