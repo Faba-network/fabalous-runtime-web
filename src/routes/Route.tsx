@@ -25,4 +25,4 @@ const mapStateToProps = (route: IRoutes): ConnectedProps => {
     }
 };
 
-export default connectRoute<ConnectedProps>(mapStateToProps, Route);
+export default connectRoute(mapStateToProps)(Route);

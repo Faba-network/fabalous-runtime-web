@@ -1,48 +1,75 @@
 import * as React from "react";
 import FabaRuntimeWeb from '../FabaRuntimeWeb';
 import {RoutesContext} from '../routes/FabaWebRoutes';
-import {IRoutes} from "../routes/IRoutes";
 
-export function connect<T, U>(mapper: (st: U) => T, Component) {
-    return function ConnectedComponent(props) {
-        return (
-            <FabaRuntimeWeb.webStateContext.Consumer>
-                {
-                    state =>
-                        // @ts-ignore
-                        <Component {...props} {...mapper(state)}/>
-                }
-            </FabaRuntimeWeb.webStateContext.Consumer>
-        );
-    }
-}
-
-
-export function connectWithRoute<T, U>(mapper: (st: U, route: IRoutes) => T, Component) {
-    return function ConnectedComponent(props) {
-        return (
-            <FabaRuntimeWeb.webStateContext.Consumer>
-                {
-                    state => <RoutesContext.Consumer>{
-                        // @ts-ignore
-                        route => <Component {...props} {...mapper(state, route)}/>
+export const connect =
+    (mapContextToProps) =>
+        (Component) => {
+            const WrappedContextComponent = (props) => (
+                <FabaRuntimeWeb.webStateContext.Consumer>
+                    {context => (
+                        <Component
+                            {...mapContextToProps(context)}
+                            {...props}
+                        />
+                    )
                     }
-                    </RoutesContext.Consumer>
-                }
-            </FabaRuntimeWeb.webStateContext.Consumer>
-        );
-    }
-}
+                </FabaRuntimeWeb.webStateContext.Consumer>
+            );
 
-export function connectRoute<T>(mapper: (route: IRoutes) => T, Component) {
-    return function ConnectedComponent(props) {
-        return (
-            <RoutesContext.Consumer>{
-                // @ts-ignore
-                route => <Component {...props} {...mapper(route)}/>
-            }
-            </RoutesContext.Consumer>
+            const componentName = Component.displayName || Component.name;
+            const wrapperName = `Context (${componentName})`;
+            //@ts-ignore
+            WrappedContextComponent.displayName = wrapperName;
 
-        );
-    }
-}
+            return WrappedContextComponent;
+        };
+
+export const connectWithRoute =
+    (mapContextToProps) =>
+        (Component) => {
+            const WrappedContextComponent = (props) => (
+                <FabaRuntimeWeb.webStateContext.Consumer>
+                    {context => (
+                        <RoutesContext.Consumer>
+                            {route => (
+                                <Component
+                                    {...mapContextToProps(context, route)}
+                                    {...props}
+                                />
+                            )}
+                        </RoutesContext.Consumer>
+                    )
+                    }
+                </FabaRuntimeWeb.webStateContext.Consumer>
+            );
+
+            const componentName = Component.displayName || Component.name;
+            const wrapperName = `Context (${componentName})`;
+            //@ts-ignore
+            WrappedContextComponent.displayName = wrapperName;
+
+            return WrappedContextComponent;
+        };
+
+export const connectRoute =
+    (mapContextToProps) =>
+        (Component) => {
+            const WrappedContextComponent = (props) => (
+                <RoutesContext.Consumer>
+                    {route => (
+                        <Component
+                            {...mapContextToProps(route)}
+                            {...props}
+                        />
+                    )}
+                </RoutesContext.Consumer>
+            );
+
+            const componentName = Component.displayName || Component.name;
+            const wrapperName = `Context (${componentName})`;
+            //@ts-ignore
+            WrappedContextComponent.displayName = wrapperName;
+
+            return WrappedContextComponent;
+        };
