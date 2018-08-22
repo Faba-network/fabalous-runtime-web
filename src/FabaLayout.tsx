@@ -12,7 +12,7 @@ interface IRootLayoutProps {
 
 export default class FabaLayout extends React.PureComponent<IRootLayoutProps> {
     render() {
-        if (process.env.NODE_ENV == "!development") {
+        if (process.env.NODE_ENV == "hot-loader-dev") {
             let AppContainer = require('react-hot-loader').AppContainer;
             return (
                 <AppContainer>

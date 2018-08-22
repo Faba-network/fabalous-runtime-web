@@ -27,6 +27,8 @@ export default class RenderToDOMCommand extends FabaWebCommand<any> {
 
         if (FabaRuntimeWeb.hydrate) {
             ReactDOM.hydrate(lay, document.getElementById(event.htmlContainer));
+        } else if (FabaRuntimeWeb.jest) {
+
         } else {
             ReactDOM.render(lay, document.getElementById(event.htmlContainer));
         }

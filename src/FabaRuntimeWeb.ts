@@ -28,6 +28,7 @@ export default class FabaRuntimeWeb extends FabaCoreRuntime {
     static activeRoute: IRoutes;
 
     static hydrate:boolean = false;
+    static jest: boolean = false;
 
     static containers: Array<any>;
 
