@@ -86,9 +86,8 @@ function getRules(){
             ]
         },
         {
-            test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3)$/,
-            loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`,
-            exclude: /node_modules/
+            test: /\.(eot|woff|woff2|ttf|png|jpg|mp4|mp3|css)$/,
+            loader: `url-loader?limit=${getMaxFileSize()}&name=assets/[name]_${getGitHash()}.[ext]`
         },
         {
             test: /\.svg$/,
