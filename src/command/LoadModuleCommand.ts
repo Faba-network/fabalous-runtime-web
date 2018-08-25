@@ -3,6 +3,7 @@ import FabaRuntimeWeb from "../FabaRuntimeWeb";
 import RenderToDOMEvent from "../event/RenderToDOMEvent";
 import FabaCore from "@fabalous/core/FabaCore";
 import {FabaWebCommand} from "../FabaWebCommand";
+import * as React from "react";
 
 export default class LoadModuleCommand extends FabaWebCommand<any> {
     async execute(event: LoadModuleEvent) {
@@ -20,6 +21,6 @@ export default class LoadModuleCommand extends FabaWebCommand<any> {
         //@ts-ignore
         FabaCore.addMediator(comp.mediator, event.route.route);
 
-        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", comp.view, event.route).dispatch();
+        new RenderToDOMEvent(FabaRuntimeWeb.rootComponent, "container", React.createElement(comp.view), event.route).dispatch();
     }
 }
