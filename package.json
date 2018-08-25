@@ -13,6 +13,7 @@
   "author": "Jörg Wasmeier",
   "license": "ISC",
   "dependencies": {
+    "sw-precache-webpack-plugin": "^0.11.5",
     "@fabalous/core": "^2.0.0",
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",

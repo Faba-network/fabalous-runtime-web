@@ -1,4 +1,5 @@
 var path = require('path');
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 function getIndexFile(){
     var ph = path.join(__workDir, './src/common/web/index.ejs');
@@ -80,7 +81,7 @@ module.exports = function (gulp){
 
         myConfig.entry = {
             app: [
-                path.join(__workDir, './src/A_Web.ts')
+                path.join(__workDir, './src/AppWeb.ts')
             ]
         };
         myConfig.mode = "production";
@@ -95,7 +96,16 @@ module.exports = function (gulp){
                 'process.env.GOOGLE_ANALYTICS': JSON.stringify(process.env.GOOGLE_ANALYTICS)
             }),
             new webpack.optimize.ModuleConcatenationPlugin(),
-
+            new SWPrecacheWebpackPlugin(
+                {
+                    cacheId: 'my-project-name',
+                    dontCacheBustUrlsMatching: /\.\w{8}\./,
+                    filename: 'service-worker.js',
+                    minify: true,
+                    navigateFallback: 'index.html',
+                    staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+                }
+            ),
 
             new HtmlWebpackPlugin({
                 hash:true,
@@ -121,7 +131,7 @@ module.exports = function (gulp){
 
         myConfig.entry = {
             app: [
-                path.join(__workDir, './src/A_Web.ts')
+                path.join(__workDir, './src/AppWeb.ts')
             ]
         };
 
