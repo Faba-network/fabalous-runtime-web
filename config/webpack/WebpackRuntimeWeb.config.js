@@ -77,9 +77,6 @@ function getRules(){
             exclude: /node_modules/,
             use: [
                 {
-                    loader:"react-hot-loader/webpack"
-                },
-                {
                     loader: 'ts-loader',
                     query: {
                         transpileOnly: true,
@@ -132,8 +129,7 @@ module.exports = {
 
     entry: {
         app: [
-            "react-hot-loader/patch",            
-            path.join(__workDir, './src/A_Web.ts'), // Your appʼs entry point
+            path.join(__workDir, './src/AppWeb.ts'), // Your appʼs entry point
             'webpack-dev-server/client?http://'+getHost()+':'+getPort()+'/', // WebpackDevServer host and port
             'webpack/hot/only-dev-server' // "only" prevents reload on syntax errors
         ]
