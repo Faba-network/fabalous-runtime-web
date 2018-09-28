@@ -9,7 +9,7 @@ export const connect =
                 <FabaRuntimeWeb.webStateContext.Consumer>
                     {context => (
                         <Component
-                            {...mapContextToProps(context)}
+                            {...mapContextToProps(context, props)}
                             {...props}
                         />
                     )
@@ -34,7 +34,7 @@ export const connectWithRoute =
                         <RoutesContext.Consumer>
                             {route => (
                                 <Component
-                                    {...mapContextToProps(context, route)}
+                                    {...mapContextToProps(context, route, props)}
                                     {...props}
                                 />
                             )}
@@ -59,7 +59,7 @@ export const connectRoute =
                 <RoutesContext.Consumer>
                     {route => (
                         <Component
-                            {...mapContextToProps(route)}
+                            {...mapContextToProps(route, props)}
                             {...props}
                         />
                     )}
